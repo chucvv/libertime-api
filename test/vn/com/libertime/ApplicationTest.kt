@@ -1,7 +1,8 @@
-package com.example
+package vn.com.libertime
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
+import org.koin.dsl.module
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

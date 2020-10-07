@@ -1,6 +1,6 @@
-package com.example.controller
+package vn.com.libertime.controller
 
-import com.example.model.User
+import vn.com.libertime.domain.entity.User
 import io.ktor.application.*
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.OK

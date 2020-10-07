@@ -1,4 +1,4 @@
-package com.example.config
+package vn.com.libertime.config
 
 import io.ktor.config.*
 import io.ktor.util.*

@@ -9,11 +9,11 @@ plugins {
     kotlin("jvm") version "1.4.10"
 }
 
-group = "com.example"
+group = "vn.com.libertime"
 version = "0.0.1"
 
 application {
-    mainClassName = "io.ktor.server.netty.EngineMain"
+    mainClassName = "vn.com.libertime.presentation.Application"
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {

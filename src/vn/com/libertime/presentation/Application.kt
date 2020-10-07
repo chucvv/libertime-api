@@ -1,7 +1,7 @@
-package com.example
+package vn.com.libertime.presentation
 
-import com.example.config.Config
-import com.example.di.liberModule
+import vn.com.libertime.config.Config
+import vn.com.libertime.presentation.di.liberModule
 import com.typesafe.config.ConfigFactory
 import io.ktor.application.*
 import io.ktor.config.*

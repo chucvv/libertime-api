@@ -1,4 +1,4 @@
-package com.example.model
+package vn.com.libertime.domain.entity
 
 import org.bson.codecs.pojo.annotations.BsonId
 import java.util.*

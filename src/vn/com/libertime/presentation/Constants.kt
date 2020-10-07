@@ -1,4 +1,4 @@
-package com.example
+package vn.com.libertime.presentation
 
 const val databaseName = "liber"
 const val databaseHost = "mongodb://127.0.0.1:27017"

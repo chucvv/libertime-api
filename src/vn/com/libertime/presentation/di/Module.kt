@@ -1,7 +1,7 @@
-package com.example.di
+package vn.com.libertime.presentation.di
 
-import com.example.databaseHost
-import com.example.databaseName
+import vn.com.libertime.presentation.databaseHost
+import vn.com.libertime.presentation.databaseName
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
