@@ -1,6 +1,6 @@
 package com.example.controller
 
-import com.example.bean.User
+import com.example.model.User
 import io.ktor.application.*
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.OK
