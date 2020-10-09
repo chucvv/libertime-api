@@ -1,6 +1,6 @@
-package vn.com.libertime.presentation
+package vn.com.libertime.application
 
-import vn.com.libertime.controller.userRoutes
+import vn.com.libertime.um.presentation.controller.userRoutes
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
@@ -8,10 +8,12 @@ import io.ktor.http.content.*
 import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.routing.*
+import org.koin.core.component.KoinApiExtension
 import org.slf4j.event.Level
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment
 
+@KoinApiExtension
 fun Application.setupModules(environment: String) {
     install(Locations)
     install(DefaultHeaders) {

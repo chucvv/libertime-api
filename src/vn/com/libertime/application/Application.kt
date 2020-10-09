@@ -1,16 +1,19 @@
-package vn.com.libertime.presentation
+package vn.com.libertime.application
 
-import vn.com.libertime.config.Config
-import vn.com.libertime.presentation.di.liberModule
 import com.typesafe.config.ConfigFactory
 import io.ktor.application.*
 import io.ktor.config.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.util.*
+import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
+import vn.com.libertime.config.Config
+import vn.com.libertime.di.DaoInjector
+import vn.com.libertime.di.UserBusinessInjector
 
+@KoinApiExtension
 @KtorExperimentalAPI
 fun main(args: Array<String>) {
     val environment = System.getenv()["ENVIRONMENT"] ?: defaultEnvironment
@@ -20,7 +23,7 @@ fun main(args: Array<String>) {
         println("Starting instance in ${config.host}:${config.port}")
         module {
             install(Koin) {
-                modules(liberModule)
+                modules(DaoInjector.database, DaoInjector.userDao, UserBusinessInjector.useCases)
             }
         }
         setupModules(environment)

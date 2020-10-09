@@ -1,7 +1,7 @@
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
-val kmongoVersion: String by project
+val kMongoVersion: String by project
 val koinVersion: String by project
 
 plugins {
@@ -40,8 +40,7 @@ dependencies {
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
     implementation("io.ktor:ktor-gson:$ktorVersion")
 
-    implementation("org.litote.kmongo:kmongo-async:$kmongoVersion")
-    implementation("org.litote.kmongo:kmongo-coroutine:$kmongoVersion")
+    implementation("org.litote.kmongo:kmongo:$kMongoVersion")
 
     implementation("org.koin:koin-core:$koinVersion")
     implementation("org.koin:koin-ktor:$koinVersion")
