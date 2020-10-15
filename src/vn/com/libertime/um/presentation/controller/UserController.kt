@@ -12,6 +12,7 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import vn.com.libertime.application.statuspages.MissingArgumentException
 import vn.com.libertime.extension.exhaustive
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.um.domain.param.LoginParam
@@ -30,12 +31,10 @@ fun Route.userRoutes() {
         post("/register") {
             val parameters = call.receiveParameters()
             val userName = parameters["username"] ?: run {
-                call.respond(BadRequest, "Need user name")
-                return@post
+                throw MissingArgumentException("Need user name")
             }
             val password = parameters["password"] ?: run {
-                call.respond(BadRequest, "Need password")
-                return@post
+                throw MissingArgumentException("Need password")
             }
 
             when (registerUseCase(RegisterParam(userName = userName, password = password, email = ""))) {
@@ -51,12 +50,10 @@ fun Route.userRoutes() {
         post("/login") {
             val parameters = call.receiveParameters()
             val userName = parameters["username"] ?: run {
-                call.respond(BadRequest, "Need user name")
-                return@post
+                throw MissingArgumentException("Need user name")
             }
             val password = parameters["password"] ?: run {
-                call.respond(BadRequest, "Need password")
-                return@post
+                throw MissingArgumentException("Need password")
             }
             when (loginUseCase(LoginParam(userName = userName, password = password))) {
                 is Result.Success -> call.respond(OK)

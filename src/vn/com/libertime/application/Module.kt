@@ -1,6 +1,5 @@
 package vn.com.libertime.application
 
-import vn.com.libertime.um.presentation.controller.userRoutes
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
@@ -10,6 +9,9 @@ import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.slf4j.event.Level
+import vn.com.libertime.application.statuspages.authStatusPages
+import vn.com.libertime.application.statuspages.generalStatusPages
+import vn.com.libertime.um.presentation.controller.userRoutes
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment
 
@@ -29,6 +31,10 @@ fun Application.setupModules(environment: String) {
         filter { call -> call.request.path().startsWith("/") }
     }
     install(ContentNegotiation) { gson { } }
+    install(StatusPages) {
+        generalStatusPages()
+        authStatusPages()
+    }
     install(Routing) {
         static("/static") {
             resources("static")
