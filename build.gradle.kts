@@ -38,7 +38,7 @@ dependencies {
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
-    implementation("io.ktor:ktor-gson:$ktorVersion")
+    implementation( "io.ktor:ktor-jackson:$ktorVersion")
 
     implementation("org.litote.kmongo:kmongo:$kMongoVersion")
 

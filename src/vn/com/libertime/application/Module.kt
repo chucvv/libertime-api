@@ -1,9 +1,10 @@
 package vn.com.libertime.application
 
+import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
 import io.ktor.features.*
-import io.ktor.gson.*
 import io.ktor.http.content.*
+import io.ktor.jackson.*
 import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.routing.*
@@ -30,7 +31,11 @@ fun Application.setupModules(environment: String) {
         }
         filter { call -> call.request.path().startsWith("/") }
     }
-    install(ContentNegotiation) { gson { } }
+    install(ContentNegotiation) {
+        jackson {
+            enable(SerializationFeature.INDENT_OUTPUT)
+        }
+    }
     install(StatusPages) {
         generalStatusPages()
         authStatusPages()
