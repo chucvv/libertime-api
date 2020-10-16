@@ -10,8 +10,8 @@ import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.slf4j.event.Level
-import vn.com.libertime.application.statuspages.authStatusPages
-import vn.com.libertime.application.statuspages.generalStatusPages
+import vn.com.libertime.statuspages.authStatusPages
+import vn.com.libertime.statuspages.generalStatusPages
 import vn.com.libertime.um.presentation.controller.userRoutes
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment

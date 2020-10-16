@@ -3,7 +3,6 @@ package vn.com.libertime.um.presentation.controller
 import io.ktor.application.*
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
-import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.http.HttpStatusCode.Companion.Unauthorized
 import io.ktor.request.*
 import io.ktor.response.*
@@ -12,11 +11,12 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import vn.com.libertime.application.statuspages.MissingArgumentException
 import vn.com.libertime.extension.exhaustive
+import vn.com.libertime.extension.sendOk
 import vn.com.libertime.shared.functions.library.Result
-import vn.com.libertime.um.domain.param.LoginParam
-import vn.com.libertime.um.domain.param.RegisterParam
+import vn.com.libertime.statuspages.MissingArgumentException
+import vn.com.libertime.um.domain.entity.LoginEntity
+import vn.com.libertime.um.domain.entity.RegisterEntity
 import vn.com.libertime.um.domain.usecase.LoginUseCase
 import vn.com.libertime.um.domain.usecase.RegisterUseCase
 
@@ -24,8 +24,8 @@ import vn.com.libertime.um.domain.usecase.RegisterUseCase
 fun Route.userRoutes() {
     val logger: Logger = LoggerFactory.getLogger("UserController")
 
-    val loginUseCase: LoginUseCase by inject()
-    val registerUseCase: RegisterUseCase by inject()
+    val loginUseCase by inject<LoginUseCase>()
+    val registerUseCase by inject<RegisterUseCase>()
 
     route("/user") {
         post("/register") {
@@ -37,10 +37,16 @@ fun Route.userRoutes() {
                 throw MissingArgumentException("Need password")
             }
 
-            when (registerUseCase(RegisterParam(userName = userName, password = password, email = ""))) {
+            when (registerUseCase(
+                RegisterEntity(
+                    userName = userName,
+                    password = password,
+                    email = ""
+                )
+            )) {
                 is Result.Success -> {
-                    call.respond(OK, "Welcome $userName")
-                    logger.info("Register user success [$userName]")
+                    sendOk()
+                    logger.info("Register user success $userName")
                 }
                 is Result.Error.StorageException -> call.respond(InternalServerError)
                 is Result.Error.BusinessException -> call.respond(BadRequest)
@@ -55,8 +61,8 @@ fun Route.userRoutes() {
             val password = parameters["password"] ?: run {
                 throw MissingArgumentException("Need password")
             }
-            when (loginUseCase(LoginParam(userName = userName, password = password))) {
-                is Result.Success -> call.respond(OK)
+            when (loginUseCase(LoginEntity(userName = userName, password = password))) {
+                is Result.Success -> sendOk()
                 is Result.Error.StorageException -> call.respond(InternalServerError)
                 is Result.Error.BusinessException -> call.respond(Unauthorized)
             }

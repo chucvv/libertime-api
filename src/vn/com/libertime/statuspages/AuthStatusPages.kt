@@ -1,4 +1,4 @@
-package vn.com.libertime.application.statuspages
+package vn.com.libertime.statuspages
 
 import io.ktor.application.*
 import io.ktor.features.*
