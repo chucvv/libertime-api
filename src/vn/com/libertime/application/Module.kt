@@ -1,7 +1,9 @@
 package vn.com.libertime.application
 
+import com.auth0.jwt.interfaces.JWTVerifier
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.features.*
 import io.ktor.http.content.*
 import io.ktor.jackson.*
@@ -9,10 +11,14 @@ import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
+import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
+import vn.com.libertime.auth.authenticationModule
 import vn.com.libertime.statuspages.authStatusPages
 import vn.com.libertime.statuspages.generalStatusPages
-import vn.com.libertime.um.presentation.controller.userRoutes
+import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
+import vn.com.libertime.um.presentation.controller.registrationModule
+import vn.com.libertime.um.presentation.controller.userModule
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment
 
@@ -40,10 +46,18 @@ fun Application.setupModules(environment: String) {
         generalStatusPages()
         authStatusPages()
     }
+    install(Authentication) {
+        val jwtVerifier by inject<JWTVerifier>()
+        val getUserByIdUseCase by inject<GetUserByIdUseCase>()
+        authenticationModule(getUserByIdUseCase, jwtVerifier)
+    }
     install(Routing) {
         static("/static") {
             resources("static")
         }
-        userRoutes()
+        registrationModule()
+        authenticate("jwt") {
+            userModule()
+        }
     }
 }

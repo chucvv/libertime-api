@@ -7,3 +7,5 @@ sealed class Result<out T : Any> {
         data class BusinessException(val exception: Exception) : Error(exception)
     }
 }
+
+fun <T : Any> Result<T>.takeSuccess(): T? = (this as? Result.Success)?.data

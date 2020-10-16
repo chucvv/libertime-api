@@ -5,5 +5,5 @@ import org.koin.core.component.KoinComponent
 
 @KoinApiExtension
 interface UseCase<P : Any, R : Any> : KoinComponent {
-    fun invoke(params: P): Result<R>
+    suspend fun invoke(params: P): Result<R>
 }

@@ -1,12 +1,14 @@
 package vn.com.libertime.um.data.model
 
-import org.bson.codecs.pojo.annotations.BsonId
-import java.util.*
+import vn.com.libertime.um.domain.entity.UserEntity
 
 data class UserModel(
-    @BsonId val id: UUID = UUID.randomUUID(),
+    val id: String,
     val userName: String,
     val password: String,
     val email: String,
     val createdDate: Long
-)
+) {
+    fun toUserEntity(): UserEntity =
+        UserEntity(userId = id, userName = userName, password = password, email = email)
+}

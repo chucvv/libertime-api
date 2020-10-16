@@ -3,6 +3,7 @@ val kotlinVersion: String by project
 val logbackVersion: String by project
 val kMongoVersion: String by project
 val koinVersion: String by project
+val bcryptVersion: String by project
 
 plugins {
     application
@@ -44,6 +45,8 @@ dependencies {
 
     implementation("org.koin:koin-core:$koinVersion")
     implementation("org.koin:koin-ktor:$koinVersion")
+
+    implementation("org.mindrot:jbcrypt:$bcryptVersion")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.koin:koin-test:$koinVersion")

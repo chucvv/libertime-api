@@ -1,3 +1,3 @@
 package vn.com.libertime.um.domain.exception
 
-class NotFoundException: Exception()
+data class NotFoundException(override val message: String = "") : Exception()

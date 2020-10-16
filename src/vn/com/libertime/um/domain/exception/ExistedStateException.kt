@@ -1,3 +1,3 @@
 package vn.com.libertime.um.domain.exception
 
-class ExistedStateException : Exception()
+data class ExistedStateException(override val message: String = "") : Exception()
