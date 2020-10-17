@@ -1,14 +1,15 @@
 package vn.com.libertime.um.data.model
 
-import vn.com.libertime.um.domain.entity.UserEntity
+import vn.com.libertime.um.domain.entity.UserInfoEntity
+import java.util.*
 
 data class UserModel(
-    val id: String,
-    val userName: String,
+    val id: Long,
+    val username: String,
     val password: String,
     val email: String,
-    val createdDate: Long
+    val createdDate: Long = Date().time,
+    val lastLoginDate: Long = Date().time
 ) {
-    fun toUserEntity(): UserEntity =
-        UserEntity(userId = id, userName = userName, password = password, email = email)
+    fun toUserInfoEntity(): UserInfoEntity = UserInfoEntity(id, username, password, email, createdDate, lastLoginDate)
 }

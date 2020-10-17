@@ -14,7 +14,7 @@ import vn.com.libertime.config.Config
 import vn.com.libertime.di.AuthInjector
 import vn.com.libertime.di.DaoInjector
 import vn.com.libertime.di.UserBusinessInjector
-import vn.com.libertime.um.domain.entity.UserEntity
+import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 
 @KoinApiExtension
 @KtorExperimentalAPI
@@ -38,4 +38,4 @@ fun main(args: Array<String>) {
     }.start(wait = true)
 }
 
-val ApplicationCall.user get() = authentication.principal<UserEntity>()
+val ApplicationCall.user get() = authentication.principal<UserCredentialsEntity>()

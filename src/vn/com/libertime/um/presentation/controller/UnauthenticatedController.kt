@@ -15,11 +15,12 @@ import vn.com.libertime.extension.sendOk
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.statuspages.MissingArgumentException
 import vn.com.libertime.statuspages.StorageException
-import vn.com.libertime.um.domain.entity.LoginEntity
-import vn.com.libertime.um.domain.entity.RegisterEntity
+import vn.com.libertime.um.domain.entity.LoginParam
+import vn.com.libertime.um.domain.entity.RegisterParam
 import vn.com.libertime.um.domain.usecase.LoginUseCase
 import vn.com.libertime.um.domain.usecase.RegisterUseCase
 import vn.com.libertime.um.presentation.model.LoginTokenResponse
+import vn.com.libertime.um.presentation.model.RegisterResponse
 
 @KoinApiExtension
 fun Route.registrationModule() {
@@ -32,15 +33,21 @@ fun Route.registrationModule() {
         val parameters = call.receiveParameters()
         val userName = parameters["username"] ?: throw MissingArgumentException("Need user name")
         val password = parameters["password"] ?: throw MissingArgumentException("Need password")
+        val email = parameters["email"] ?: ""
 
         when (val result = registerUseCase(
-            RegisterEntity(
+            RegisterParam(
                 userName = userName,
                 password = password,
-                email = ""
+                email = email
             )
         )) {
-            is Result.Success -> sendOk()
+            is Result.Success -> {
+                val data = result.data
+                val registerResponse =
+                    RegisterResponse(id = data.userId, userName = data.userName, createdDate = data.createdDate)
+                sendOk(registerResponse)
+            }
             is Result.Error.StorageException -> throw StorageException(result.exception.message ?: "")
             is Result.Error.BusinessException -> call.respond(BadRequest, result.exception.message ?: "")
         }.exhaustive
@@ -51,7 +58,7 @@ fun Route.registrationModule() {
         val userName = parameters["username"] ?: throw MissingArgumentException("Need user name")
         val password = parameters["password"] ?: throw MissingArgumentException("Need password")
 
-        when (val result = loginUseCase(LoginEntity(userName = userName, password = password))) {
+        when (val result = loginUseCase(LoginParam(userName = userName, password = password))) {
             is Result.Success -> sendOk(LoginTokenResponse(result.data))
             is Result.Error.StorageException -> throw StorageException()
             is Result.Error.BusinessException -> call.respond(Unauthorized, result.exception.message ?: "")

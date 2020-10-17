@@ -3,8 +3,8 @@ package vn.com.libertime.auth
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
-import vn.com.libertime.um.domain.entity.UserEntity
-import vn.com.libertime.um.presentation.model.Credentials
+import vn.com.libertime.um.domain.entity.UserCredentialsEntity
+import vn.com.libertime.um.domain.entity.Credentials
 import java.util.*
 
 object JwtConfig : TokenProvider {
@@ -27,12 +27,12 @@ object JwtConfig : TokenProvider {
     /**
      * Produce token and refresh token for this combination of User and Account
      */
-    override fun createTokens(user: UserEntity) = Credentials(
+    override fun createTokens(user: UserCredentialsEntity) = Credentials(
         createToken(user, getTokenExpiration()),
         createToken(user, getTokenExpiration(refreshValidityInMs))
     )
 
-    private fun createToken(user: UserEntity, expiration: Date) = JWT.create()
+    private fun createToken(user: UserCredentialsEntity, expiration: Date) = JWT.create()
         .withSubject("Authentication")
         .withIssuer(issuer)
         .withClaim("id", user.userId)
@@ -47,6 +47,6 @@ object JwtConfig : TokenProvider {
 }
 
 interface TokenProvider {
-    fun createTokens(user: UserEntity): Credentials
+    fun createTokens(user: UserCredentialsEntity): Credentials
     fun verifyToken(token: String): Int?
 }
