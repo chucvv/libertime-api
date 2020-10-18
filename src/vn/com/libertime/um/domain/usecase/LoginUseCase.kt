@@ -5,10 +5,10 @@ import org.koin.core.component.inject
 import vn.com.libertime.auth.TokenProvider
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.UseCase
+import vn.com.libertime.statuspages.AuthenticationException
 import vn.com.libertime.um.domain.entity.Credentials
 import vn.com.libertime.um.domain.entity.LoginParam
 import vn.com.libertime.um.domain.entity.UserCredentialsEntity
-import vn.com.libertime.um.domain.exception.NotFoundException
 import vn.com.libertime.um.domain.repository.UserDao
 import vn.com.libertime.util.PasswordManagerContract
 
@@ -21,7 +21,7 @@ class LoginUseCase : UseCase<LoginParam, Credentials> {
     override suspend operator fun invoke(params: LoginParam): Result<Credentials> {
         val userInfoEntity =
             userDao.getUserByName(params.userName)
-                ?: return Result.Error.BusinessException(NotFoundException("User is not found"))
+                ?: return Result.Error.BusinessException(AuthenticationException("User is not found"))
         if (passwordManager.validatePassword(params.password, userInfoEntity.password)) {
             val credentials: Credentials =
                 tokenProvider.createTokens(
@@ -32,6 +32,6 @@ class LoginUseCase : UseCase<LoginParam, Credentials> {
                 )
             return Result.Success(credentials)
         }
-        return Result.Error.BusinessException(IllegalAccessException())
+        return Result.Error.BusinessException(AuthenticationException("Wrong password"))
     }
 }

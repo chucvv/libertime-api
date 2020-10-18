@@ -1,62 +1,70 @@
 package vn.com.libertime.um.data.dao
 
-import com.mongodb.MongoException
-import com.mongodb.client.MongoCollection
-import com.mongodb.client.MongoDatabase
-import com.mongodb.client.result.InsertOneResult
-import com.mongodb.client.result.UpdateResult
-import org.litote.kmongo.eq
-import org.litote.kmongo.findOne
-import org.litote.kmongo.getCollection
-import org.litote.kmongo.updateOneById
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 import vn.com.libertime.shared.functions.library.exception.DatabaseException
-import vn.com.libertime.um.data.model.UserModel
+import vn.com.libertime.um.data.extension.toUserEntity
+import vn.com.libertime.um.data.model.Users
+import vn.com.libertime.um.data.model.Users.userId
 import vn.com.libertime.um.domain.entity.UserInfoEntity
 import vn.com.libertime.um.domain.repository.DaoCreateUserParam
 import vn.com.libertime.um.domain.repository.DaoUpdateUserParam
 import vn.com.libertime.um.domain.repository.UserDao
 
-class DefaultUserDao(private val userDb: MongoDatabase) : UserDao {
-    private val collectionName = "user"
+class DefaultUserDao : UserDao {
 
-    private val userCollection: MongoCollection<UserModel> by lazy {
-        userDb.getCollection<UserModel>(collectionName)
+    init {
+        transaction {
+            SchemaUtils.create(Users)
+        }
     }
 
     override suspend fun createUser(userid: Long, registerParamEntity: DaoCreateUserParam): UserInfoEntity {
-        val userModel = UserModel(
-            userid,
-            registerParamEntity.userName,
-            registerParamEntity.password,
-            registerParamEntity.email
-        )
-        val result: InsertOneResult = try {
-            userCollection.insertOne(userModel)
-        } catch (ex: MongoException) {
+        return try {
+            transaction {
+                Users.insert {
+                    it[userId] = userid
+                    it[username] = registerParamEntity.userName
+                    it[password] = registerParamEntity.password
+                    it[email] = registerParamEntity.email
+                }
+                Users.select { userId eq userid }.single().toUserEntity()
+            }
+        } catch (ex: Exception) {
             throw DatabaseException(ex)
         }
-        if (!result.wasAcknowledged()) {
-            throw DatabaseException(MongoException("Cant insert user"))
-        }
-        return userModel.toUserInfoEntity()
     }
 
     override suspend fun updateUser(userid: Long, updateUserParam: DaoUpdateUserParam): UserInfoEntity {
-        val result: UpdateResult = try {
-            userCollection.updateOneById(userid, updateUserParam)
-        } catch (ex: MongoException) {
+        return try {
+            transaction {
+                Users.update({ userId eq userid }) {
+                    updateUserParam.userName?.run {
+                        it[username] = updateUserParam.userName
+                    }
+                    updateUserParam.password?.run {
+                        it[password] = updateUserParam.password
+                    }
+                    updateUserParam.email?.run {
+                        it[email] = updateUserParam.email
+                    }
+                }
+                Users.select { userId eq userid }.single().toUserEntity()
+            }
+        } catch (ex: Exception) {
             throw DatabaseException(ex)
         }
-        if (!result.wasAcknowledged()) {
-            throw DatabaseException(MongoException("Cant update user"))
-        }
-        return getUserById(userid) ?: throw DatabaseException(MongoException("Cant find user"))
     }
 
-    override suspend fun getUserByName(username: String): UserInfoEntity? =
-        userCollection.findOne(UserModel::username eq username)?.toUserInfoEntity()
+    override suspend fun getUserByName(username: String): UserInfoEntity? = transaction {
+        Users.select { Users.username eq username }.singleOrNull()?.toUserEntity()
+    }
 
-    override suspend fun getUserById(userid: Long): UserInfoEntity? =
-        userCollection.findOne(UserModel::id eq userid)?.toUserInfoEntity()
+    override suspend fun getUserById(userid: Long): UserInfoEntity? = transaction {
+        Users.select { userId eq userid }.singleOrNull()?.toUserEntity()
+    }
 
 }

@@ -2,6 +2,8 @@ package vn.com.libertime.application
 
 import com.auth0.jwt.interfaces.JWTVerifier
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.features.*
@@ -10,6 +12,7 @@ import io.ktor.jackson.*
 import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.routing.*
+import org.jetbrains.exposed.sql.Database
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
@@ -22,8 +25,16 @@ import vn.com.libertime.um.presentation.controller.userModule
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment
 
+fun initDB() {
+    val config = HikariConfig("/hikari.properties")
+    config.schema = "public"
+    val ds = HikariDataSource(config)
+    Database.connect(ds)
+}
+
 @KoinApiExtension
 fun Application.setupModules(environment: String) {
+    initDB()
     install(Locations)
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")

@@ -2,7 +2,6 @@ package vn.com.libertime.um.presentation.controller
 
 import io.ktor.application.*
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
-import io.ktor.http.HttpStatusCode.Companion.Unauthorized
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -62,7 +61,7 @@ fun Route.registrationModule() {
         when (val result = loginUseCase(LoginParam(userName = userName, password = password))) {
             is Result.Success -> sendOk(LoginTokenResponse(result.data))
             is Result.Error.StorageException -> throw StorageException(result.takeException() ?: "")
-            is Result.Error.BusinessException -> call.respond(Unauthorized, result.takeException() ?: "")
+            is Result.Error.BusinessException -> throw result.exception
         }
         logger.info("User [$userName] login")
     }

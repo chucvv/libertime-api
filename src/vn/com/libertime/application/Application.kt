@@ -27,7 +27,6 @@ fun main(args: Array<String>) {
         module {
             install(Koin) {
                 modules(
-                    DaoInjector.database,
                     DaoInjector.userDao,
                     AuthInjector.authInjector,
                     UserBusinessInjector.useCases

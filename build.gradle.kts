@@ -1,9 +1,11 @@
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
-val kMongoVersion: String by project
 val koinVersion: String by project
 val bcryptVersion: String by project
+val exposedVersion: String by project
+val hikariCpVersion: String by project
+val postgresqlVersion: String by project
 
 plugins {
     application
@@ -39,9 +41,12 @@ dependencies {
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
-    implementation( "io.ktor:ktor-jackson:$ktorVersion")
+    implementation("io.ktor:ktor-jackson:$ktorVersion")
 
-    implementation("org.litote.kmongo:kmongo:$kMongoVersion")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("com.zaxxer:HikariCP:$hikariCpVersion")
+    implementation("org.postgresql:postgresql:$postgresqlVersion")
 
     implementation("org.koin:koin-core:$koinVersion")
     implementation("org.koin:koin-ktor:$koinVersion")
