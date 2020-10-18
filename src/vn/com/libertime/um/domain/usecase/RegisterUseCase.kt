@@ -7,6 +7,7 @@ import vn.com.libertime.shared.functions.library.UseCase
 import vn.com.libertime.um.domain.entity.RegisterParam
 import vn.com.libertime.um.domain.entity.UserInfoEntity
 import vn.com.libertime.um.domain.exception.ExistedStateException
+import vn.com.libertime.um.domain.repository.DaoCreateUserParam
 import vn.com.libertime.um.domain.repository.UserDao
 import vn.com.libertime.util.Number
 import vn.com.libertime.util.PasswordManagerContract
@@ -15,18 +16,22 @@ import vn.com.libertime.util.PasswordManagerContract
 class RegisterUseCase : UseCase<RegisterParam, UserInfoEntity> {
     private val userDao by inject<UserDao>()
     private val passwordEncryption by inject<PasswordManagerContract>()
-    override suspend operator fun invoke(params: RegisterParam): Result<UserInfoEntity> {
-        return try {
+    override suspend operator fun invoke(params: RegisterParam): Result<UserInfoEntity> =
+        try {
             userDao.getUserByName(params.userName)?.run {
                 return Result.Error.BusinessException(ExistedStateException("User is existed"))
             }
-
-            val userParams = params.copy(password = passwordEncryption.encryptPassword(params.password))
+            val password = passwordEncryption.encryptPassword(params.password)
             val userId: Long = Number.generateUniqueNumber()
-            val userInfoEntity = userDao.createUser(userId, userParams)
+            val userInfoEntity = userDao.createUser(
+                userId,
+                DaoCreateUserParam(
+                    userName = params.userName, password = password, email = params.email
+                )
+            )
             Result.Success(userInfoEntity)
         } catch (ex: Exception) {
             Result.Error.StorageException(ex)
         }
-    }
+
 }

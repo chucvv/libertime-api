@@ -7,7 +7,7 @@ data class UserModel(
     val id: Long,
     val username: String,
     val password: String,
-    val email: String,
+    val email: String?,
     val createdDate: Long = Date().time,
     val lastLoginDate: Long = Date().time
 ) {

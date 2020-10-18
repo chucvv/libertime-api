@@ -4,15 +4,16 @@ import com.mongodb.MongoException
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.result.InsertOneResult
+import com.mongodb.client.result.UpdateResult
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 import org.litote.kmongo.updateOneById
-import vn.com.libertime.um.data.exception.DatabaseInteractException
+import vn.com.libertime.shared.functions.library.exception.DatabaseException
 import vn.com.libertime.um.data.model.UserModel
-import vn.com.libertime.um.domain.entity.RegisterParam
-import vn.com.libertime.um.domain.entity.UpdateUserParam
 import vn.com.libertime.um.domain.entity.UserInfoEntity
+import vn.com.libertime.um.domain.repository.DaoCreateUserParam
+import vn.com.libertime.um.domain.repository.DaoUpdateUserParam
 import vn.com.libertime.um.domain.repository.UserDao
 
 class DefaultUserDao(private val userDb: MongoDatabase) : UserDao {
@@ -22,7 +23,7 @@ class DefaultUserDao(private val userDb: MongoDatabase) : UserDao {
         userDb.getCollection<UserModel>(collectionName)
     }
 
-    override suspend fun createUser(userid: Long, registerParamEntity: RegisterParam): UserInfoEntity {
+    override suspend fun createUser(userid: Long, registerParamEntity: DaoCreateUserParam): UserInfoEntity {
         val userModel = UserModel(
             userid,
             registerParamEntity.userName,
@@ -32,30 +33,24 @@ class DefaultUserDao(private val userDb: MongoDatabase) : UserDao {
         val result: InsertOneResult = try {
             userCollection.insertOne(userModel)
         } catch (ex: MongoException) {
-            throw DatabaseInteractException(ex)
+            throw DatabaseException(ex)
         }
         if (!result.wasAcknowledged()) {
-            throw DatabaseInteractException(MongoException("Cant insert user"))
+            throw DatabaseException(MongoException("Cant insert user"))
         }
         return userModel.toUserInfoEntity()
     }
 
-    override suspend fun updateUser(userid: Long, updateUserParam: UpdateUserParam): UserInfoEntity {
-        val userModel = UserModel(
-            userid,
-            updateUserParam.username,
-            updateUserParam.password,
-            updateUserParam.email
-        )
-        val result = try {
-            userCollection.updateOneById(userid, userModel)
+    override suspend fun updateUser(userid: Long, updateUserParam: DaoUpdateUserParam): UserInfoEntity {
+        val result: UpdateResult = try {
+            userCollection.updateOneById(userid, updateUserParam)
         } catch (ex: MongoException) {
-            throw DatabaseInteractException(ex)
+            throw DatabaseException(ex)
         }
-        if (result.modifiedCount <= 0) {
-            throw DatabaseInteractException(MongoException("Cant update user"))
+        if (!result.wasAcknowledged()) {
+            throw DatabaseException(MongoException("Cant update user"))
         }
-        return userModel.toUserInfoEntity()
+        return getUserById(userid) ?: throw DatabaseException(MongoException("Cant find user"))
     }
 
     override suspend fun getUserByName(username: String): UserInfoEntity? =

@@ -4,7 +4,7 @@ data class UserInfoEntity(
     val userId: Long,
     val userName: String,
     val password: String,
-    val email: String,
+    val email: String?,
     val createdDate: Long,
     val lastLoginDate: Long
 ) {
