@@ -8,9 +8,13 @@ import io.ktor.response.*
 
 data class MissingArgumentException(override val message: String = "Missing argument") : Exception()
 data class StorageException(override val message: String = "Internal database error") : Exception()
+data class BusinessException(override val message: String = "Bad request") : Exception()
 
 fun StatusPages.Configuration.generalStatusPages() {
     exception<MissingArgumentException> { cause ->
+        call.respond(HttpStatusCode.BadRequest, cause.message)
+    }
+    exception<BusinessException> { cause ->
         call.respond(HttpStatusCode.BadRequest, cause.message)
     }
     exception<StorageException> { cause ->
@@ -18,8 +22,5 @@ fun StatusPages.Configuration.generalStatusPages() {
     }
     exception<UnknownError> {
         call.respond(HttpStatusCode.InternalServerError)
-    }
-    exception<IllegalArgumentException> {
-        call.respond(HttpStatusCode.BadRequest)
     }
 }

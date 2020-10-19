@@ -6,7 +6,6 @@ import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.UseCase
 import vn.com.libertime.um.domain.entity.RegisterParam
 import vn.com.libertime.um.domain.entity.UserInfoEntity
-import vn.com.libertime.um.domain.exception.ExistedStateException
 import vn.com.libertime.um.domain.repository.DaoCreateUserParam
 import vn.com.libertime.um.domain.repository.UserDao
 import vn.com.libertime.util.Number
@@ -19,7 +18,7 @@ class RegisterUseCase : UseCase<RegisterParam, UserInfoEntity> {
     override suspend operator fun invoke(params: RegisterParam): Result<UserInfoEntity> =
         try {
             userDao.getUserByName(params.userName)?.run {
-                return Result.Error.BusinessException(ExistedStateException("User is existed"))
+                return Result.Error.BusinessException("User is existed")
             }
             val password = passwordEncryption.encryptPassword(params.password)
             val userId: Long = Number.generateUniqueNumber()
@@ -31,7 +30,7 @@ class RegisterUseCase : UseCase<RegisterParam, UserInfoEntity> {
             )
             Result.Success(userInfoEntity)
         } catch (ex: Exception) {
-            Result.Error.StorageException(ex)
+            Result.Error.StorageException(ex.message)
         }
 
 }

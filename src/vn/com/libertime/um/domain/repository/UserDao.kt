@@ -9,5 +9,5 @@ interface UserDao {
     suspend fun getUserById(userid: Long): UserInfoEntity?
 }
 
-data class DaoUpdateUserParam(val userName: String?, val password: String?, val email: String?)
+data class DaoUpdateUserParam(val userName: String?, val email: String?)
 data class DaoCreateUserParam(val userName: String, val password: String, val email: String?)

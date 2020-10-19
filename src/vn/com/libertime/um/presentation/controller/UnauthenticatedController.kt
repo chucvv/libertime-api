@@ -1,9 +1,7 @@
 package vn.com.libertime.um.presentation.controller
 
 import io.ktor.application.*
-import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.request.*
-import io.ktor.response.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
@@ -13,6 +11,7 @@ import vn.com.libertime.extension.exhaustive
 import vn.com.libertime.extension.sendOk
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.takeException
+import vn.com.libertime.statuspages.BusinessException
 import vn.com.libertime.statuspages.MissingArgumentException
 import vn.com.libertime.statuspages.StorageException
 import vn.com.libertime.um.domain.entity.LoginParam
@@ -29,7 +28,7 @@ fun Route.registrationModule() {
     val loginUseCase by inject<LoginUseCase>()
     val registerUseCase by inject<RegisterUseCase>()
 
-    post("/user") {
+    post("user") {
         val parameters = call.receiveParameters()
         val userName = parameters["username"] ?: throw MissingArgumentException("Need user name")
         val password = parameters["password"] ?: throw MissingArgumentException("Need password")
@@ -49,11 +48,11 @@ fun Route.registrationModule() {
                 sendOk(registerResponse)
             }
             is Result.Error.StorageException -> throw StorageException(result.takeException() ?: "")
-            is Result.Error.BusinessException -> call.respond(BadRequest, result.takeException() ?: "")
+            is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")
         }.exhaustive
     }
 
-    post("/authenticate") {
+    post("authenticate") {
         val parameters = call.receiveParameters()
         val userName = parameters["username"] ?: throw MissingArgumentException("Need user name")
         val password = parameters["password"] ?: throw MissingArgumentException("Need password")
@@ -61,7 +60,7 @@ fun Route.registrationModule() {
         when (val result = loginUseCase(LoginParam(userName = userName, password = password))) {
             is Result.Success -> sendOk(LoginTokenResponse(result.data))
             is Result.Error.StorageException -> throw StorageException(result.takeException() ?: "")
-            is Result.Error.BusinessException -> throw result.exception
+            is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")
         }
         logger.info("User [$userName] login")
     }

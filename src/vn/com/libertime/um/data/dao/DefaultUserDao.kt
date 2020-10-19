@@ -45,9 +45,6 @@ class DefaultUserDao : UserDao {
                     updateUserParam.userName?.run {
                         it[username] = updateUserParam.userName
                     }
-                    updateUserParam.password?.run {
-                        it[password] = updateUserParam.password
-                    }
                     updateUserParam.email?.run {
                         it[email] = updateUserParam.email
                     }
