@@ -17,6 +17,7 @@ import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
 import vn.com.libertime.um.domain.usecase.UpdateUserInfoUseCase
 import vn.com.libertime.um.presentation.model.MeResponse
+import vn.com.libertime.um.presentation.model.UpdateProfileRequest
 
 @KoinApiExtension
 fun Route.userModule() {
@@ -42,10 +43,8 @@ fun Route.userModule() {
     }
     put("updateProfile") {
         val user: UserCredentialsEntity = call.user ?: throw AuthorizationException()
-        val parameters = call.receiveParameters()
-        val userName = parameters["username"]
-        val email = parameters["email"]
-        when (val result = updateUserInfoUseCase(UpdateUserParam(user.userId, userName, email))) {
+        val request = call.receive<UpdateProfileRequest>()
+        when (val result = updateUserInfoUseCase(UpdateUserParam(user.userId, request.username, request.email))) {
             is Result.Success -> {
                 val userInfo = result.data
                 sendOk(

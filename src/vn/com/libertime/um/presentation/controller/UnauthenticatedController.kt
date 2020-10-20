@@ -18,7 +18,9 @@ import vn.com.libertime.um.domain.entity.LoginParam
 import vn.com.libertime.um.domain.entity.RegisterParam
 import vn.com.libertime.um.domain.usecase.LoginUseCase
 import vn.com.libertime.um.domain.usecase.RegisterUseCase
+import vn.com.libertime.um.presentation.model.LoginRequest
 import vn.com.libertime.um.presentation.model.LoginTokenResponse
+import vn.com.libertime.um.presentation.model.RegisterRequest
 import vn.com.libertime.um.presentation.model.RegisterResponse
 
 @KoinApiExtension
@@ -29,10 +31,10 @@ fun Route.registrationModule() {
     val registerUseCase by inject<RegisterUseCase>()
 
     post("user") {
-        val parameters = call.receiveParameters()
-        val userName = parameters["username"] ?: throw MissingArgumentException("Need user name")
-        val password = parameters["password"] ?: throw MissingArgumentException("Need password")
-        val email = parameters["email"]
+        val request = call.receive<RegisterRequest>()
+        val userName = request.username ?: throw MissingArgumentException("Need user name")
+        val password = request.password ?: throw MissingArgumentException("Need password")
+        val email = request.email
 
         when (val result = registerUseCase(
             RegisterParam(
@@ -53,9 +55,9 @@ fun Route.registrationModule() {
     }
 
     post("authenticate") {
-        val parameters = call.receiveParameters()
-        val userName = parameters["username"] ?: throw MissingArgumentException("Need user name")
-        val password = parameters["password"] ?: throw MissingArgumentException("Need password")
+        val request = call.receive<LoginRequest>()
+        val userName = request.username ?: throw MissingArgumentException("Need user name")
+        val password = request.password ?: throw MissingArgumentException("Need password")
 
         when (val result = loginUseCase(LoginParam(userName = userName, password = password))) {
             is Result.Success -> sendOk(LoginTokenResponse(result.data))
