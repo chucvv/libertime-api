@@ -7,7 +7,7 @@ import io.ktor.response.*
 
 
 data class MissingArgumentException(override val message: String = "Missing argument") : Exception()
-data class StorageException(override val message: String = "Internal database error") : Exception()
+data class SystemException(override val message: String = "Internal database error") : Exception()
 data class BusinessException(override val message: String = "Bad request") : Exception()
 
 fun StatusPages.Configuration.generalStatusPages() {
@@ -17,7 +17,7 @@ fun StatusPages.Configuration.generalStatusPages() {
     exception<BusinessException> { cause ->
         call.respond(HttpStatusCode.BadRequest, cause.message)
     }
-    exception<StorageException> { cause ->
+    exception<SystemException> { cause ->
         call.respond(HttpStatusCode.InternalServerError, cause.message)
     }
     exception<UnknownError> {

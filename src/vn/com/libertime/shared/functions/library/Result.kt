@@ -3,7 +3,7 @@ package vn.com.libertime.shared.functions.library
 sealed class Result<out T : Any> {
     data class Success<out T : Any>(val data: T) : Result<T>()
     sealed class Error(open val exception: String?) : Result<Nothing>() {
-        data class StorageException(override val exception: String? = "") : Error(exception)
+        data class InternalSystemException(override val exception: String? = "") : Error(exception)
         data class BusinessException(override val exception: String? = "") : Error(exception)
     }
 }

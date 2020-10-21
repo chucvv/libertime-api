@@ -4,33 +4,34 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.UseCase
-import vn.com.libertime.um.domain.entity.RegisterParam
 import vn.com.libertime.um.domain.entity.UserInfoEntity
-import vn.com.libertime.um.domain.repository.DaoCreateUserParam
-import vn.com.libertime.um.domain.repository.UserDao
+import vn.com.libertime.um.domain.service.CreateUserDaoParam
+import vn.com.libertime.um.domain.service.UserService
 import vn.com.libertime.util.Number
 import vn.com.libertime.util.PasswordManagerContract
 
+data class RegisterParam(val userName: String, val password: String, val email: String?)
+
 @KoinApiExtension
 class RegisterUseCase : UseCase<RegisterParam, UserInfoEntity> {
-    private val userDao by inject<UserDao>()
+    private val userService by inject<UserService>()
     private val passwordEncryption by inject<PasswordManagerContract>()
-    override suspend operator fun invoke(params: RegisterParam): Result<UserInfoEntity> =
+    override suspend operator fun invoke(params: RegisterParam): Result<UserInfoEntity> {
         try {
-            userDao.getUserByName(params.userName)?.run {
-                return Result.Error.BusinessException("User is existed")
+            userService.getUserByName(params.userName)?.run {
+                return Result.Error.BusinessException("User has already taken")
             }
             val password = passwordEncryption.encryptPassword(params.password)
             val userId: Long = Number.generateUniqueNumber()
-            val userInfoEntity = userDao.createUser(
+            val userInfoEntity: UserInfoEntity = userService.createUser(
                 userId,
-                DaoCreateUserParam(
+                CreateUserDaoParam(
                     userName = params.userName, password = password, email = params.email
                 )
-            )
-            Result.Success(userInfoEntity)
+            ) ?: return Result.Error.BusinessException("User created unsuccessfully")
+            return Result.Success(userInfoEntity)
         } catch (ex: Exception) {
-            Result.Error.StorageException(ex.message)
+            return Result.Error.InternalSystemException(ex.message)
         }
-
+    }
 }

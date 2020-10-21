@@ -22,12 +22,17 @@ import vn.com.libertime.statuspages.generalStatusPages
 import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
 import vn.com.libertime.um.presentation.controller.registrationModule
 import vn.com.libertime.um.presentation.controller.userModule
+import vn.com.libertime.workspace.presentation.controller.workspaceModule
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment
 
 fun initDB() {
     val config = HikariConfig("/hikari.properties")
     config.schema = "public"
+    config.maximumPoolSize = 3
+    config.isAutoCommit = false
+    config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+    config.validate()
     val ds = HikariDataSource(config)
     Database.connect(ds)
 }
@@ -69,6 +74,7 @@ fun Application.setupModules(environment: String) {
         registrationModule()
         authenticate("jwt") {
             userModule()
+            workspaceModule()
         }
     }
 }

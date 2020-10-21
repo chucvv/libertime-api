@@ -7,21 +7,21 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import vn.com.libertime.extension.exhaustive
-import vn.com.libertime.extension.sendOk
 import vn.com.libertime.shared.functions.library.Result
+import vn.com.libertime.shared.functions.library.extension.exhaustive
+import vn.com.libertime.shared.functions.library.extension.sendOk
 import vn.com.libertime.shared.functions.library.takeException
 import vn.com.libertime.statuspages.BusinessException
 import vn.com.libertime.statuspages.MissingArgumentException
-import vn.com.libertime.statuspages.StorageException
-import vn.com.libertime.um.domain.entity.LoginParam
-import vn.com.libertime.um.domain.entity.RegisterParam
+import vn.com.libertime.statuspages.SystemException
+import vn.com.libertime.um.domain.usecase.LoginParam
 import vn.com.libertime.um.domain.usecase.LoginUseCase
+import vn.com.libertime.um.domain.usecase.RegisterParam
 import vn.com.libertime.um.domain.usecase.RegisterUseCase
-import vn.com.libertime.um.presentation.model.LoginRequest
-import vn.com.libertime.um.presentation.model.LoginTokenResponse
-import vn.com.libertime.um.presentation.model.RegisterRequest
-import vn.com.libertime.um.presentation.model.RegisterResponse
+import vn.com.libertime.um.presentation.`object`.LoginRequest
+import vn.com.libertime.um.presentation.`object`.LoginTokenResponse
+import vn.com.libertime.um.presentation.`object`.RegisterRequest
+import vn.com.libertime.um.presentation.`object`.RegisterResponse
 
 @KoinApiExtension
 fun Route.registrationModule() {
@@ -49,7 +49,7 @@ fun Route.registrationModule() {
                     RegisterResponse(id = data.userId, userName = data.userName, createdDate = data.createdDate)
                 sendOk(registerResponse)
             }
-            is Result.Error.StorageException -> throw StorageException(result.takeException() ?: "")
+            is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
             is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")
         }.exhaustive
     }
@@ -61,9 +61,9 @@ fun Route.registrationModule() {
 
         when (val result = loginUseCase(LoginParam(userName = userName, password = password))) {
             is Result.Success -> sendOk(LoginTokenResponse(result.data))
-            is Result.Error.StorageException -> throw StorageException(result.takeException() ?: "")
+            is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
             is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")
-        }
+        }.exhaustive
         logger.info("User [$userName] login")
     }
 }

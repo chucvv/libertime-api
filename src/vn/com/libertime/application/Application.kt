@@ -12,8 +12,8 @@ import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
 import vn.com.libertime.config.Config
 import vn.com.libertime.di.AuthInjector
-import vn.com.libertime.di.DaoInjector
-import vn.com.libertime.di.UserBusinessInjector
+import vn.com.libertime.di.BusinessInjector
+import vn.com.libertime.di.ServiceInjector
 import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 
 @KoinApiExtension
@@ -27,9 +27,11 @@ fun main(args: Array<String>) {
         module {
             install(Koin) {
                 modules(
-                    DaoInjector.userDao,
                     AuthInjector.authInjector,
-                    UserBusinessInjector.useCases
+                    ServiceInjector.userService,
+                    ServiceInjector.workspaceService,
+                    BusinessInjector.userUseCases,
+                    BusinessInjector.workspaceUseCases
                 )
             }
         }
