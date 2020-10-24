@@ -26,8 +26,8 @@ import vn.com.libertime.workspace.presentation.controller.workspaceModule
 
 fun isProduction(environment: String): Boolean = environment == productionEnvironment
 
-fun initDB() {
-    val config = HikariConfig("/hikari.properties")
+fun initDB(environment: String) {
+    val config = HikariConfig("/${environment}_hikari.properties")
     config.schema = "public"
     config.maximumPoolSize = 3
     config.isAutoCommit = false
@@ -39,7 +39,7 @@ fun initDB() {
 
 @KoinApiExtension
 fun Application.setupModules(environment: String) {
-    initDB()
+    initDB(environment)
     install(Locations)
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")

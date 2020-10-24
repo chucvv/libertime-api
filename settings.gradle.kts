@@ -1,1 +1,1 @@
-rootProject.name = "example"
+rootProject.name = "libertime_api"
