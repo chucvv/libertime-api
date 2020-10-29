@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: postgres
   # Backend instance that depends on database instance to start.
   backend:
-    image: libertime-api:latest
+    image: chucvv/libertime:latest
     container_name: liber-apis
     mem_limit: 300m
     depends_on:
