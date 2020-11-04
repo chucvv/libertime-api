@@ -12,6 +12,9 @@ import io.ktor.jackson.*
 import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.routing.*
+import io.lettuce.core.RedisClient
+import io.lettuce.core.RedisURI
+import io.lettuce.core.api.StatefulRedisConnection
 import org.jetbrains.exposed.sql.Database
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
@@ -37,9 +40,16 @@ fun initDB(environment: String) {
     Database.connect(ds)
 }
 
+fun initRedis(environment: String) {
+    val redisURI = RedisURI.builder().withHost("localhost").withPort(6379).withDatabase(1).build()
+    val redisClient = RedisClient.create(redisURI)
+    val connection: StatefulRedisConnection<String, String> = redisClient.connect()
+}
+
 @KoinApiExtension
 fun Application.setupModules(environment: String) {
     initDB(environment)
+    initRedis(environment)
     install(Locations)
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")

@@ -8,6 +8,7 @@ val bcryptVersion: String by project
 val exposedVersion: String by project
 val hikariCpVersion: String by project
 val postgresqlVersion: String by project
+val lettuceVersion: String by project
 
 repositories {
     mavenLocal()
@@ -65,6 +66,8 @@ dependencies {
     implementation("org.koin:koin-ktor:$koinVersion")
 
     implementation("org.mindrot:jbcrypt:$bcryptVersion")
+
+    implementation("io.lettuce:lettuce-core:$lettuceVersion")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.koin:koin-test:$koinVersion")
