@@ -38,6 +38,7 @@ fun Route.registrationModule() {
 
         when (val result = registerUseCase(
             RegisterParam(
+                userid = 0L,
                 userName = userName,
                 password = password,
                 email = email
@@ -46,7 +47,7 @@ fun Route.registrationModule() {
             is Result.Success -> {
                 val data = result.data
                 val registerResponse =
-                    RegisterResponse(id = data.userId, userName = data.userName, createdDate = data.createdDate)
+                    RegisterResponse(id = data.userId, userName = data.username, createdDate = data.createdDate)
                 sendOk(registerResponse)
             }
             is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
@@ -59,7 +60,7 @@ fun Route.registrationModule() {
         val userName = request.username ?: throw MissingArgumentException("Need user name")
         val password = request.password ?: throw MissingArgumentException("Need password")
 
-        when (val result = loginUseCase(LoginParam(userName = userName, password = password))) {
+        when (val result = loginUseCase(LoginParam(username = userName, password = password))) {
             is Result.Success -> sendOk(LoginTokenResponse(result.data))
             is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
             is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")

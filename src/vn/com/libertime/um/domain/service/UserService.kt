@@ -1,13 +1,15 @@
 package vn.com.libertime.um.domain.service
 
+import vn.com.libertime.um.domain.entity.UserEntity
 import vn.com.libertime.um.domain.entity.UserInfoEntity
+import vn.com.libertime.um.domain.entity.UserProfileEntity
+import vn.com.libertime.um.domain.usecase.RegisterParam
+import vn.com.libertime.um.domain.usecase.UpdateUserParam
 
 interface UserService {
-    suspend fun createUser(userid: Long, registerParamEntity: CreateUserDaoParam): UserInfoEntity?
-    suspend fun updateUser(userid: Long, updateUserParam: UpdateUserDaoParam): UserInfoEntity?
-    suspend fun getUserByName(username: String): UserInfoEntity?
-    suspend fun getUserById(userid: Long): UserInfoEntity?
+    suspend fun createUser(registerParam: RegisterParam): UserEntity?
+    suspend fun updateUser(updateUserParam: UpdateUserParam): UserInfoEntity?
+    suspend fun getUserByName(username: String): UserEntity?
+    suspend fun getUserById(userid: Long): UserEntity?
+    suspend fun getUserProfileById(userid: Long): UserProfileEntity?
 }
-
-data class UpdateUserDaoParam(val userName: String?, val email: String?)
-data class CreateUserDaoParam(val userName: String, val password: String, val email: String?)

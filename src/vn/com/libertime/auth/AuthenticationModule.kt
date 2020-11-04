@@ -25,7 +25,7 @@ fun Authentication.Configuration.authenticationModule(
         realm = "ktor.io"
         validate {
             it.payload.getClaim("id").asLong()?.let { userId ->
-                getUserByIdUseCase(userId).takeSuccess()?.toUserCredentialsEntity()
+                getUserByIdUseCase(userId).takeSuccess()?.userEntity?.toUserCredentialsEntity()
             }
         }
     }

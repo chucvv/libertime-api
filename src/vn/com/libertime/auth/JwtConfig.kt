@@ -36,7 +36,7 @@ object JwtConfig : TokenProvider {
         .withSubject("Authentication")
         .withIssuer(issuer)
         .withClaim("id", user.userId)
-        .withClaim("name", user.userName)
+        .withClaim("name", user.username)
         .withExpiresAt(expiration)
         .sign(algorithm)
 

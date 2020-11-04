@@ -16,7 +16,6 @@ import vn.com.libertime.statuspages.SystemException
 import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
 import vn.com.libertime.um.domain.usecase.UpdateUserInfoUseCase
-import vn.com.libertime.um.domain.usecase.UpdateUserParam
 import vn.com.libertime.um.presentation.`object`.MeResponse
 import vn.com.libertime.um.presentation.`object`.UpdateProfileRequest
 
@@ -30,14 +29,8 @@ fun Route.userModule() {
             val user: UserCredentialsEntity = call.user ?: throw AuthorizationException()
             when (val result = getUserByIdUseCase(user.userId)) {
                 is Result.Success -> {
-                    val userInfo = result.data
                     sendOk(
-                        MeResponse(
-                            userId = user.userId,
-                            userName = userInfo.userName,
-                            email = userInfo.email,
-                            createdDate = userInfo.createdDate
-                        )
+                        MeResponse.fromUserInfoEntity(result.data)
                     )
                 }
                 is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
@@ -48,16 +41,10 @@ fun Route.userModule() {
         put {
             val user: UserCredentialsEntity = call.user ?: throw AuthorizationException()
             val request = call.receive<UpdateProfileRequest>()
-            when (val result = updateUserInfoUseCase(UpdateUserParam(user.userId, request.username, request.email))) {
+            when (val result = updateUserInfoUseCase(request.toUpdateUserParam(user.userId))) {
                 is Result.Success -> {
-                    val userInfo = result.data
                     sendOk(
-                        MeResponse(
-                            userId = user.userId,
-                            userName = userInfo.userName,
-                            email = userInfo.email,
-                            createdDate = userInfo.createdDate
-                        )
+                        MeResponse.fromUserInfoEntity(result.data)
                     )
                 }
                 is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")

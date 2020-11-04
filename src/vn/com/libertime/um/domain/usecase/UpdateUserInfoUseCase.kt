@@ -5,10 +5,21 @@ import org.koin.core.component.inject
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.UseCase
 import vn.com.libertime.um.domain.entity.UserInfoEntity
-import vn.com.libertime.um.domain.service.UpdateUserDaoParam
 import vn.com.libertime.um.domain.service.UserService
 
-data class UpdateUserParam(val userId: Long, val username: String?, val email: String?)
+data class UpdateUserParam(
+    val userId: Long,
+    val email: String,
+    val firstname: String,
+    val lastname: String,
+    val sex: Boolean,
+    val birthday: Long,
+    val firebaseId: String?,
+    val address: String,
+    val university: String,
+    val lat: Double?,
+    val lng: Double?,
+)
 
 @KoinApiExtension
 class UpdateUserInfoUseCase : UseCase<UpdateUserParam, UserInfoEntity> {
@@ -17,9 +28,8 @@ class UpdateUserInfoUseCase : UseCase<UpdateUserParam, UserInfoEntity> {
         try {
             val userId = params.userId
             userService.getUserById(userId) ?: Result.Error.BusinessException("User is not found")
-            val user: UserInfoEntity = userService.updateUser(
-                userId,
-                UpdateUserDaoParam(userName = params.username, email = params.email)
+            val user = userService.updateUser(
+                params
             ) ?: return Result.Error.BusinessException("User updated unsuccessfully")
             return Result.Success(user)
         } catch (ex: Exception) {

@@ -10,7 +10,7 @@ import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 import vn.com.libertime.um.domain.service.UserService
 import vn.com.libertime.util.PasswordManagerContract
 
-data class LoginParam(val userName: String, val password: String)
+data class LoginParam(val username: String, val password: String)
 
 @KoinApiExtension
 class LoginUseCase : UseCase<LoginParam, Credentials> {
@@ -19,15 +19,16 @@ class LoginUseCase : UseCase<LoginParam, Credentials> {
     private val tokenProvider by inject<TokenProvider>()
 
     override suspend operator fun invoke(params: LoginParam): Result<Credentials> {
+        val username = params.username
         val userInfoEntity =
-            userService.getUserByName(params.userName)
-                ?: return Result.Error.BusinessException("User is not found")
+            userService.getUserByName(username)
+                ?: return Result.Error.BusinessException("User $username is not found")
         if (passwordManager.validatePassword(params.password, userInfoEntity.password)) {
             val credentials: Credentials =
                 tokenProvider.createTokens(
                     UserCredentialsEntity(
                         userId = userInfoEntity.userId,
-                        userName = userInfoEntity.userName
+                        username = userInfoEntity.username
                     )
                 )
             return Result.Success(credentials)
