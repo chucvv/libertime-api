@@ -24,7 +24,7 @@ fun Authentication.Configuration.authenticationModule(
         verifier(tokenVerifier)
         realm = "ktor.io"
         validate {
-            it.payload.getClaim("id").asLong()?.let { userId ->
+            it.payload.getClaim(claim).asLong()?.let { userId ->
                 getUserByIdUseCase(userId).takeSuccess()?.userEntity?.toUserCredentialsEntity()
             }
         }

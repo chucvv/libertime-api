@@ -1,6 +1,5 @@
 package vn.com.libertime.workspace.data.service.dao
 
-import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -19,11 +18,6 @@ interface WorkspaceDao {
 }
 
 class DefaultWorkspaceDao : WorkspaceDao {
-    init {
-        transaction {
-            SchemaUtils.create(Workspaces)
-        }
-    }
 
     override suspend fun create(params: CreateWorkspaceParam): WorkspaceEntity? = try {
         transaction {

@@ -1,11 +1,13 @@
 package vn.com.libertime.um.presentation.controller
 
 import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import vn.com.libertime.application.user
+import vn.com.libertime.shared.functions.library.FailureMessages
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.extension.exhaustive
 import vn.com.libertime.shared.functions.library.extension.sendOk
@@ -40,7 +42,9 @@ fun Route.userModule() {
 
         put {
             val user: UserCredentialsEntity = call.user ?: throw AuthorizationException()
-            val request = call.receive<UpdateProfileRequest>()
+            val request = runCatching { call.receive<UpdateProfileRequest>() }.getOrElse {
+                throw BadRequestException(FailureMessages.MESSAGE_FAILED)
+            }
             when (val result = updateUserInfoUseCase(request.toUpdateUserParam(user.userId))) {
                 is Result.Success -> {
                     sendOk(

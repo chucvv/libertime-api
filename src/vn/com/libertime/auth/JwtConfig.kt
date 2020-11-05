@@ -7,9 +7,14 @@ import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 import vn.com.libertime.um.domain.entity.Credentials
 import java.util.*
 
+const val claim = "id"
+
 class JwtConfig private constructor(secret: String) : TokenProvider {
     private val algorithm = Algorithm.HMAC256(secret)
-    val verifier: JWTVerifier = JWT.require(algorithm).withIssuer(issuer).build()
+    val verifier: JWTVerifier = JWT.require(algorithm)
+        .withIssuer(issuer)
+        .withAudience(audience)
+        .build()
 
     override fun verifyToken(token: String): Int? {
         return verifier.verify(token).claims[claim]?.asInt()
@@ -49,7 +54,6 @@ class JwtConfig private constructor(secret: String) : TokenProvider {
 
         private const val issuer = "libertime.com.vn.issuer"
         private const val audience = "libertime.com.vn"
-        private const val claim = "id"
         private const val validityInMs: Long = 3600000L * 24L
         private const val refreshValidityInMs: Long = 3600000L * 24L * 30L
     }

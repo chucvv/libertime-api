@@ -1,6 +1,7 @@
 package vn.com.libertime.workspace.presentation.controller
 
 import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
@@ -12,7 +13,6 @@ import vn.com.libertime.shared.functions.library.extension.sendOk
 import vn.com.libertime.shared.functions.library.takeException
 import vn.com.libertime.statuspages.AuthorizationException
 import vn.com.libertime.statuspages.BusinessException
-import vn.com.libertime.statuspages.MissingArgumentException
 import vn.com.libertime.statuspages.SystemException
 import vn.com.libertime.workspace.domain.service.CreateWorkspaceParam
 import vn.com.libertime.workspace.domain.usecase.CreateWorkspaceUseCase
@@ -30,9 +30,11 @@ fun Route.workspaceModule() {
     route("workspace") {
         post {
             val user = call.user ?: throw AuthorizationException()
-            val request = call.receive<CreateWorkspaceRequest>()
-            val wsName = request.name ?: throw MissingArgumentException("Need a name for ws")
-            when (val result = createWorkspaceUseCase(CreateWorkspaceParam(userId = user.userId, name = wsName))) {
+            val request = runCatching { call.receive<CreateWorkspaceRequest>() }.getOrElse {
+                throw BadRequestException("Need a name for ws")
+            }
+            when (val result =
+                createWorkspaceUseCase(CreateWorkspaceParam(userId = user.userId, name = request.name))) {
                 is Result.Success -> sendOk(data = result.data)
                 is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
                 is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")
@@ -50,9 +52,10 @@ fun Route.workspaceModule() {
 
         delete {
             call.user ?: throw AuthorizationException()
-            val request = call.receive<DeleteWorkspaceRequest>()
-            val wsId = request.id ?: throw MissingArgumentException("Need a id for deleting ws")
-            when (val result = deleteWorkspaceUseCase(wsId)) {
+            val request = runCatching { call.receive<DeleteWorkspaceRequest>() }.getOrElse {
+                throw BadRequestException("Need a id for deleting ws")
+            }
+            when (val result = deleteWorkspaceUseCase(request.id)) {
                 is Result.Success -> sendOk(data = result.data)
                 is Result.Error.InternalSystemException -> throw SystemException(result.takeException() ?: "")
                 is Result.Error.BusinessException -> throw BusinessException(result.takeException() ?: "")

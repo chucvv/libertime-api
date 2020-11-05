@@ -1,6 +1,5 @@
 package vn.com.libertime.um.data.service.dao
 
-import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -63,12 +62,6 @@ interface UserDao {
 }
 
 class DefaultUserDao : UserDao {
-    init {
-        transaction {
-            SchemaUtils.create(Users)
-            SchemaUtils.create(UserProfile)
-        }
-    }
 
     override suspend fun createUser(userid: Long, registerParamEntity: CreateUserDaoParam): UserEntity? {
         return try {

@@ -15,8 +15,8 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
 import vn.com.libertime.auth.authenticationModule
-import vn.com.libertime.statuspages.authStatusPages
-import vn.com.libertime.statuspages.generalStatusPages
+import vn.com.libertime.statuspages.businessStatusPages
+import vn.com.libertime.statuspages.commonStatusPages
 import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
 import vn.com.libertime.um.presentation.controller.registrationModule
 import vn.com.libertime.um.presentation.controller.userModule
@@ -52,8 +52,8 @@ fun Application.setupCommonModules(environment: String) {
 @KoinApiExtension
 fun Application.setupBusinessModules() {
     install(StatusPages) {
-        generalStatusPages()
-        authStatusPages()
+        commonStatusPages()
+        businessStatusPages()
     }
     install(Authentication) {
         val jwtVerifier by inject<JWTVerifier>()

@@ -13,8 +13,8 @@ import vn.com.libertime.auth.Config
 import vn.com.libertime.auth.JwtConfig
 import vn.com.libertime.defaultEnvironment
 import vn.com.libertime.di.injectorSet
-import vn.com.libertime.shared.functions.library.initDB
-import vn.com.libertime.shared.functions.library.initRedis
+import vn.com.libertime.shared.functions.library.Database
+import vn.com.libertime.shared.functions.library.Redis
 import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
@@ -24,17 +24,16 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 fun Application.module() {
     val environment = System.getenv()["ENVIRONMENT"] ?: defaultEnvironment
     val applicationConfig = HoconApplicationConfig(ConfigFactory.load())
-    with(Config(applicationConfig)) {
+    with(Config(environment, applicationConfig)) {
         JwtConfig.initialize(SECRET_KEY)
+        Redis(CACHED_REDIS_HOST, CACHED_REDIS_PORT)
     }
-
+    Database(environment)
     module {
         install(Koin) {
             modules(injectorSet)
         }
     }
-    initDB(environment)
-    initRedis(environment)
     setupCommonModules(environment)
     setupBusinessModules()
 }

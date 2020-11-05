@@ -21,5 +21,6 @@ services:
       - postgres
     environment:
       - ENVIRONMENT=production
+      - SECRET_KEY=private-key
     ports:
       - "80:80"
