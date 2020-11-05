@@ -9,8 +9,8 @@ import vn.com.libertime.util.PasswordManagerContract
 
 object AuthInjector {
     val authInjector = module {
-        single<JWTVerifier> { JwtConfig.verifier }
-        single<PasswordManagerContract> { PasswordManager }
-        single<TokenProvider> { JwtConfig }
+        single<JWTVerifier> { JwtConfig.instance.verifier }
+        single<PasswordManagerContract> { PasswordManager() }
+        single<TokenProvider> { JwtConfig.instance }
     }
 }

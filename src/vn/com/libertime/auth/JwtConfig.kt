@@ -7,21 +7,12 @@ import vn.com.libertime.um.domain.entity.UserCredentialsEntity
 import vn.com.libertime.um.domain.entity.Credentials
 import java.util.*
 
-object JwtConfig : TokenProvider {
-
-    private const val secret = "PlaceYourSecretHere"
-    private const val issuer = "libertime.com.vn"
-    private const val validityInMs: Long = 3600000L * 24L // 24h
-    private const val refreshValidityInMs: Long = 3600000L * 24L * 30L // 30 days
-    private val algorithm = Algorithm.HMAC512(secret)
-
-    val verifier: JWTVerifier = JWT
-        .require(algorithm)
-        .withIssuer(issuer)
-        .build()
+class JwtConfig private constructor(secret: String) : TokenProvider {
+    private val algorithm = Algorithm.HMAC256(secret)
+    val verifier: JWTVerifier = JWT.require(algorithm).withIssuer(issuer).build()
 
     override fun verifyToken(token: String): Int? {
-        return verifier.verify(token).claims["id"]?.asInt()
+        return verifier.verify(token).claims[claim]?.asInt()
     }
 
     /**
@@ -35,8 +26,8 @@ object JwtConfig : TokenProvider {
     private fun createToken(user: UserCredentialsEntity, expiration: Date) = JWT.create()
         .withSubject("Authentication")
         .withIssuer(issuer)
-        .withClaim("id", user.userId)
-        .withClaim("name", user.username)
+        .withAudience(audience)
+        .withClaim(claim, user.userId)
         .withExpiresAt(expiration)
         .sign(algorithm)
 
@@ -44,6 +35,24 @@ object JwtConfig : TokenProvider {
      * Calculate the expiration Date based on current time + the given validity
      */
     private fun getTokenExpiration(validity: Long = validityInMs) = Date(System.currentTimeMillis() + validity)
+
+    companion object {
+        lateinit var instance: JwtConfig
+
+        fun initialize(secret: String) {
+            synchronized(this) {
+                if (!this::instance.isInitialized) {
+                    instance = JwtConfig(secret)
+                }
+            }
+        }
+
+        private const val issuer = "libertime.com.vn.issuer"
+        private const val audience = "libertime.com.vn"
+        private const val claim = "id"
+        private const val validityInMs: Long = 3600000L * 24L
+        private const val refreshValidityInMs: Long = 3600000L * 24L * 30L
+    }
 }
 
 interface TokenProvider {
