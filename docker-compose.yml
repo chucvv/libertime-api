@@ -12,15 +12,28 @@ services:
       POSTGRES_DB: liber
       POSTGRES_USER: chucvv
       POSTGRES_PASSWORD: postgres
-  # Backend instance that depends on database instance to start.
+
+  # Redis cache
+  redis:
+    image: "redis:alpine"
+    container_name: "redis"
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+  # Backend instance that depends on database and caching instance to start.
   backend:
     image: chucvv/libertime:latest
     container_name: liber-apis
     mem_limit: 300m
     depends_on:
       - postgres
+      - redis
     environment:
       - ENVIRONMENT=production
-      - SECRET_KEY=private-key
+      - HASH_SECRET_KEY=${HASH_SECRET_KEY}
+      - REDIS_SECRET_KEY=${REDIS_SECRET_KEY}
     ports:
       - "80:80"
