@@ -33,7 +33,8 @@ services:
       - redis
     environment:
       - ENVIRONMENT=production
+      - PORT=8080
       - HASH_SECRET_KEY=${HASH_SECRET_KEY}
       - REDIS_SECRET_KEY=${REDIS_SECRET_KEY}
     ports:
-      - "80:80"
+      - "80:8080"
