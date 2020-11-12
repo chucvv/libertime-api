@@ -25,8 +25,8 @@ fun Application.module() {
     val environment = System.getenv()["ENVIRONMENT"] ?: defaultEnvironment
     val applicationConfig = HoconApplicationConfig(ConfigFactory.load())
     with(Config(environment, applicationConfig)) {
-        JwtConfig.initialize(SECRET_KEY)
-        Redis(CACHED_REDIS_HOST, CACHED_REDIS_PORT, SECRET)
+        JwtConfig.initialize(HASH_SECRET_KEY)
+        Redis(CACHED_REDIS_HOST, CACHED_REDIS_PORT, REDIS_SECRET_KEY)
     }
     Database(environment)
     module {
