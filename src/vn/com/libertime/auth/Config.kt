@@ -14,4 +14,5 @@ class Config(environment: String, applicationConfig: ApplicationConfig) {
     private val redisConfig = applicationConfig.config("redis.$environment")
     val CACHED_REDIS_HOST = redisConfig.property("host").getString()
     val CACHED_REDIS_PORT = redisConfig.property("port").getString().toInt()
+    val SECRET = redisConfig.property("secret").getString()
 }
