@@ -7,11 +7,10 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import vn.com.libertime.um.data.model.UserProfile
 import vn.com.libertime.um.data.model.Users
-import vn.com.libertime.workspace.data.model.Workspaces
 
 class Database(private val environment: String) {
 
-    private val tables = arrayOf(Users, UserProfile, Workspaces)
+    private val tables = arrayOf(Users, UserProfile)
 
     init {
         connect()

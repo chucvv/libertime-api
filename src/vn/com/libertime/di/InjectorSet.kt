@@ -6,7 +6,5 @@ import org.koin.core.component.KoinApiExtension
 val injectorSet = listOf(
     AuthInjector.authInjector,
     ServiceInjector.userService,
-    ServiceInjector.workspaceService,
     BusinessInjector.userUseCases,
-    BusinessInjector.workspaceUseCases
 )

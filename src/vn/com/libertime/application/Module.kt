@@ -21,7 +21,6 @@ import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
 import vn.com.libertime.um.presentation.controller.registrationModule
 import vn.com.libertime.um.presentation.controller.userModule
 import vn.com.libertime.util.isProduction
-import vn.com.libertime.workspace.presentation.controller.workspaceModule
 
 fun Application.setupCommonModules(environment: String) {
     install(CORS) {
@@ -67,7 +66,6 @@ fun Application.setupBusinessModules() {
         registrationModule()
         authenticate("jwt") {
             userModule()
-            workspaceModule()
         }
     }
 }
