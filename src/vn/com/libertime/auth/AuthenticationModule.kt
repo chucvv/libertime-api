@@ -10,6 +10,8 @@ import vn.com.libertime.shared.functions.library.takeSuccess
 import vn.com.libertime.um.domain.entity.Credential
 import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
 
+val ApplicationCall.user get() = authentication.principal<Credential>()
+
 @KoinApiExtension
 fun Authentication.Configuration.authenticationModule(
     getUserByIdUseCase: GetUserByIdUseCase,
