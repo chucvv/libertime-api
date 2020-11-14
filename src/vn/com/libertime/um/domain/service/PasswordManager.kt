@@ -1,4 +1,4 @@
-package vn.com.libertime.util
+package vn.com.libertime.um.domain.service
 
 import org.mindrot.jbcrypt.BCrypt
 

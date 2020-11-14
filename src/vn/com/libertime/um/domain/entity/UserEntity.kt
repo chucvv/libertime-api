@@ -11,5 +11,5 @@ data class UserEntity(
     val birthday: Long,
     val createdDate: Long
 ) {
-    fun toUserCredentialsEntity() = UserCredentialsEntity(userId, username)
+    fun toUserCredentialsEntity() = Credential(userId)
 }

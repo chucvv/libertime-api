@@ -4,8 +4,8 @@ import com.auth0.jwt.interfaces.JWTVerifier
 import org.koin.dsl.module
 import vn.com.libertime.auth.JwtConfig
 import vn.com.libertime.auth.TokenProvider
-import vn.com.libertime.util.PasswordManager
-import vn.com.libertime.util.PasswordManagerContract
+import vn.com.libertime.um.domain.service.PasswordManager
+import vn.com.libertime.um.domain.service.PasswordManagerContract
 
 object AuthInjector {
     val authInjector = module {

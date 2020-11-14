@@ -3,8 +3,8 @@ package vn.com.libertime.auth
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
-import vn.com.libertime.um.domain.entity.UserCredentialsEntity
-import vn.com.libertime.um.domain.entity.Credentials
+import vn.com.libertime.um.domain.entity.Credential
+import vn.com.libertime.um.domain.entity.CredentialEntity
 import java.util.*
 
 const val claim = "id"
@@ -23,16 +23,16 @@ class JwtConfig private constructor(secret: String) : TokenProvider {
     /**
      * Produce token and refresh token for this combination of User and Account
      */
-    override fun createTokens(user: UserCredentialsEntity) = Credentials(
-        createToken(user, getTokenExpiration()),
-        createToken(user, getTokenExpiration(refreshValidityInMs))
+    override fun createTokens(credential: Credential) = CredentialEntity(
+        createToken(credential, getTokenExpiration()),
+        createToken(credential, getTokenExpiration(refreshValidityInMs))
     )
 
-    private fun createToken(user: UserCredentialsEntity, expiration: Date) = JWT.create()
+    private fun createToken(credential: Credential, expiration: Date) = JWT.create()
         .withSubject("Authentication")
         .withIssuer(issuer)
         .withAudience(audience)
-        .withClaim(claim, user.userId)
+        .withClaim(claim, credential.userId)
         .withExpiresAt(expiration)
         .sign(algorithm)
 
@@ -60,6 +60,6 @@ class JwtConfig private constructor(secret: String) : TokenProvider {
 }
 
 interface TokenProvider {
-    fun createTokens(user: UserCredentialsEntity): Credentials
+    fun createTokens(credential: Credential): CredentialEntity
     fun verifyToken(token: String): Int?
 }

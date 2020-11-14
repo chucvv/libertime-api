@@ -4,9 +4,7 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
 import vn.com.libertime.shared.functions.library.Result
 import vn.com.libertime.shared.functions.library.UseCase
-import vn.com.libertime.um.domain.entity.UserEntity
 import vn.com.libertime.um.domain.entity.UserInfoEntity
-import vn.com.libertime.um.domain.entity.UserProfileEntity
 import vn.com.libertime.um.domain.service.UserService
 
 @KoinApiExtension

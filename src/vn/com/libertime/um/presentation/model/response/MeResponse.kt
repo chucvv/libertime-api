@@ -1,4 +1,4 @@
-package vn.com.libertime.um.presentation.`object`
+package vn.com.libertime.um.presentation.model.response
 
 import vn.com.libertime.um.domain.entity.UserInfoEntity
 

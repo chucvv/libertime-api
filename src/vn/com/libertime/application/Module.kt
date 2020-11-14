@@ -15,12 +15,14 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
 import vn.com.libertime.auth.authenticationModule
+import vn.com.libertime.route.auth
+import vn.com.libertime.route.user
 import vn.com.libertime.statuspages.businessStatusPages
 import vn.com.libertime.statuspages.commonStatusPages
 import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
-import vn.com.libertime.um.presentation.controller.registrationModule
-import vn.com.libertime.um.presentation.controller.userModule
-import vn.com.libertime.util.isProduction
+import vn.com.libertime.um.presentation.controller.AuthController
+import vn.com.libertime.um.presentation.controller.UserController
+import vn.com.libertime.utilities.isProduction
 
 fun Application.setupCommonModules(environment: String) {
     install(CORS) {
@@ -54,18 +56,24 @@ fun Application.setupBusinessModules() {
         commonStatusPages()
         businessStatusPages()
     }
+
+    val jwtVerifier by inject<JWTVerifier>()
+    val getUserByIdUseCase by inject<GetUserByIdUseCase>()
+
     install(Authentication) {
-        val jwtVerifier by inject<JWTVerifier>()
-        val getUserByIdUseCase by inject<GetUserByIdUseCase>()
         authenticationModule(getUserByIdUseCase, jwtVerifier)
     }
+
+    val authController by inject<AuthController>()
+    val userController by inject<UserController>()
+
     install(Routing) {
         static("/static") {
             resources("static")
         }
-        registrationModule()
+        auth(authController)
         authenticate("jwt") {
-            userModule()
+            user(userController)
         }
     }
 }

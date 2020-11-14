@@ -43,12 +43,11 @@ data class UpdateUserDaoParam(
     }
 }
 
-data class CreateUserDaoParam(val username: String, val password: String, val email: String?) {
+data class CreateUserDaoParam(val username: String, val password: String) {
     companion object {
         fun fromRegisterParam(registerParam: RegisterParam): CreateUserDaoParam = CreateUserDaoParam(
             username = registerParam.userName,
             password = registerParam.password,
-            email = registerParam.email
         )
     }
 }
@@ -70,7 +69,6 @@ class DefaultUserDao : UserDao {
                     it[id] = userid
                     it[username] = registerParamEntity.username
                     it[password] = registerParamEntity.password
-                    it[email] = registerParamEntity.email
                 }
                 UserProfile.insert {
                     it[userId] = userid

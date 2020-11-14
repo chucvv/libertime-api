@@ -1,4 +1,4 @@
-package vn.com.libertime.um.presentation.`object`
+package vn.com.libertime.um.presentation.model.response
 
 data class RegisterResponse(
     val id: Long,

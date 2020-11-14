@@ -24,16 +24,13 @@ data class UpdateUserParam(
 @KoinApiExtension
 class UpdateUserInfoUseCase : UseCase<UpdateUserParam, UserInfoEntity> {
     private val userService by inject<UserService>()
-    override suspend operator fun invoke(params: UpdateUserParam): Result<UserInfoEntity> {
-        try {
-            val userId = params.userId
-            userService.getUserById(userId) ?: Result.Error.BusinessException("User is not found")
-            val user = userService.updateUser(
-                params
-            ) ?: return Result.Error.BusinessException("User updated unsuccessfully")
-            return Result.Success(user)
-        } catch (ex: Exception) {
-            return Result.Error.InternalSystemException(ex.message)
-        }
+    override suspend operator fun invoke(params: UpdateUserParam): Result<UserInfoEntity> = runCatching {
+        userService.getUserById(params.userId) ?: return Result.Error.BusinessException("User is not found")
+        val user = userService.updateUser(
+            params
+        ) ?: return Result.Error.BusinessException("User updated unsuccessfully")
+        Result.Success(user)
+    }.getOrElse {
+        Result.Error.InternalSystemException(it.message)
     }
 }

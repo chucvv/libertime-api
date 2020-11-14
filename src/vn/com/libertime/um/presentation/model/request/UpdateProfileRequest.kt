@@ -1,4 +1,4 @@
-package vn.com.libertime.um.presentation.`object`
+package vn.com.libertime.um.presentation.model.request
 
 import vn.com.libertime.um.domain.usecase.UpdateUserParam
 

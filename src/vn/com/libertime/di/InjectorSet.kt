@@ -7,4 +7,5 @@ val injectorSet = listOf(
     AuthInjector.authInjector,
     ServiceInjector.userService,
     BusinessInjector.userUseCases,
+    BusinessInjector.controllers,
 )
