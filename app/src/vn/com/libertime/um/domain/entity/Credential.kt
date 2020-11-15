@@ -1,5 +1,5 @@
 package vn.com.libertime.um.domain.entity
 
-import io.ktor.auth.Principal
+import io.ktor.auth.*
 
-data class Credential(val userId: Long) : Principal
+data class Credential(val userId: String) : Principal

@@ -1,9 +1,9 @@
 package vn.com.libertime.um.presentation.model.response
 
-import vn.com.libertime.um.domain.entity.UserInfoEntity
+import vn.com.libertime.um.domain.entity.UserInfo
 
 data class MeResponse(
-    val userId: Long,
+    val userId: String,
     val username: String,
     val email: String?,
     val firstname: String?,
@@ -17,9 +17,9 @@ data class MeResponse(
     val lng: Double?,
 ) {
     companion object {
-        fun fromUserInfoEntity(userInfoEntity: UserInfoEntity): MeResponse {
-            val userInfo = userInfoEntity.userEntity
-            val userProfile = userInfoEntity.userProfileEntity
+        fun fromUserInfoEntity(userInfoEntity: UserInfo): MeResponse {
+            val userInfo = userInfoEntity.user
+            val userProfile = userInfoEntity.userProfile
             return MeResponse(
                 userId = userInfo.userId,
                 username = userInfo.username,

@@ -14,7 +14,7 @@ data class UpdateProfileRequest(
     val lat: Double,
     val lng: Double,
 ) {
-    fun toUpdateUserParam(userid: Long): UpdateUserParam = UpdateUserParam(
+    fun toUpdateUserParam(userid: String): UpdateUserParam = UpdateUserParam(
         userId = userid,
         email = email,
         firstname = firstname,

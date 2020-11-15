@@ -8,9 +8,9 @@ import io.ktor.util.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
+import vn.com.libertime.Database
 import vn.com.libertime.auth.JwtConfig
 import vn.com.libertime.di.injectorSet
-import vn.com.libertime.shared.functions.library.Database
 import vn.com.libertime.shared.functions.library.Redis
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)

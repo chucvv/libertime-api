@@ -9,9 +9,8 @@ import vn.com.libertime.um.domain.entity.Credential
 import vn.com.libertime.um.domain.entity.CredentialEntity
 import vn.com.libertime.um.domain.service.PasswordManagerContract
 import vn.com.libertime.um.domain.service.UserService
-import vn.com.libertime.utilities.Number
 
-data class RegisterParam(val userid: Long = 0, val userName: String, val password: String)
+data class RegisterParam(val userName: String, val password: String)
 
 @KoinApiExtension
 class RegisterUseCase : UseCase<RegisterParam, CredentialEntity> {
@@ -25,10 +24,9 @@ class RegisterUseCase : UseCase<RegisterParam, CredentialEntity> {
             return@runCatching Result.Error.BusinessException("User $username has already taken")
         }
         val password = passwordEncryption.encryptPassword(params.password)
-        val userId: Long = Number.generateUniqueNumber()
-        userService.createUser(
-            params.copy(userid = userId, password = password)
-        ) ?: return Result.Error.BusinessException("User $username created unsuccessfully")
+        val userId = userService.createUser(
+            params.copy(password = password)
+        )
 
         val credentials: CredentialEntity =
             tokenProvider.createTokens(Credential(userId))

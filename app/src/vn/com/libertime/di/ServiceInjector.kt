@@ -2,10 +2,10 @@ package vn.com.libertime.di
 
 import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
-import vn.com.libertime.um.data.service.DefaultUserService
-import vn.com.libertime.um.data.service.dao.DefaultUserDao
-import vn.com.libertime.um.data.service.dao.UserDao
+import vn.com.libertime.dao.DefaultUserDao
+import vn.com.libertime.dao.UserDao
 import vn.com.libertime.um.domain.service.UserService
+import vn.com.libertime.um.service.DefaultUserService
 
 @KoinApiExtension
 object ServiceInjector {

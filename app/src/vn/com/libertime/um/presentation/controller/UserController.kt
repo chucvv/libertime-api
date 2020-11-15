@@ -13,7 +13,7 @@ import vn.com.libertime.um.presentation.model.response.MeResponse
 import vn.com.libertime.um.presentation.model.response.UserProfileResponse
 
 interface UserController {
-    suspend fun getProfile(userId: Long): UserProfileResponse
+    suspend fun getProfile(userId: String): UserProfileResponse
     suspend fun updateProfile(updateUserParam: UpdateUserParam): UserProfileResponse
 }
 
@@ -23,7 +23,7 @@ class DefaultUserController : UserController, KoinComponent {
     val updateUserInfoUseCase by inject<UpdateUserInfoUseCase>()
     val getUserByIdUseCase by inject<GetUserByIdUseCase>()
 
-    override suspend fun getProfile(userId: Long): UserProfileResponse =
+    override suspend fun getProfile(userId: String): UserProfileResponse =
         when (val result = getUserByIdUseCase(userId)) {
             is Result.Success -> UserProfileResponse.success(MeResponse.fromUserInfoEntity(result.data))
             is Result.Error.InternalSystemException -> UserProfileResponse.failed(result.takeException())
@@ -32,7 +32,7 @@ class DefaultUserController : UserController, KoinComponent {
 
     override suspend fun updateProfile(updateUserParam: UpdateUserParam): UserProfileResponse =
         when (val result = updateUserInfoUseCase(updateUserParam)) {
-            is Result.Success -> UserProfileResponse.success(MeResponse.fromUserInfoEntity(result.data))
+            is Result.Success -> UserProfileResponse.success(null)
             is Result.Error.InternalSystemException -> UserProfileResponse.failed(result.takeException())
             is Result.Error.BusinessException -> UserProfileResponse.notFound(result.takeException())
         }.exhaustive

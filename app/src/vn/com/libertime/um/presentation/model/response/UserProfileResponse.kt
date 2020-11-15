@@ -19,7 +19,7 @@ data class UserProfileResponse(
             message = message
         )
 
-        fun success(meResponse: MeResponse) = UserProfileResponse(
+        fun success(meResponse: MeResponse?) = UserProfileResponse(
             status = State.SUCCESS,
             data = meResponse,
         )
