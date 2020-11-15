@@ -26,8 +26,8 @@ RUN chmod -R 755 /app
 USER $APPLICATION_USER
 
 # Copying needed files
-COPY --from=build /appbuild/build/libs/*.jar /app/
-COPY --from=build /appbuild/resources/ /app/resources/
+COPY --from=build /appbuild/app/build/libs/*.jar /app/
+COPY --from=build /appbuild/app/resources/ /app/resources/
 WORKDIR /app
 
 # Entrypoint definition
