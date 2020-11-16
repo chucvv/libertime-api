@@ -20,7 +20,7 @@ application {
 }
 
 tasks.withType<ShadowJar>  {
-    archiveBaseName.set("${project.name}-all")
+    archiveBaseName.set("liber_api_deployable")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")
