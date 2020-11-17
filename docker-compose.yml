@@ -5,6 +5,7 @@ services:
   # Database instance we need to store data
   postgres:
     image: postgres:latest
+    restart: always
     container_name: db-postgres
     ports:
       - "5432:5432"
@@ -26,6 +27,7 @@ services:
   # Backend instance that depends on database and caching instance to start.
   backend:
     image: chucvv/libertime:latest
+    restart: always
     container_name: liber-apis
     mem_limit: 300m
     depends_on:
