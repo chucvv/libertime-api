@@ -21,10 +21,9 @@ class Database(private val environment: String) {
 
     private fun connect() {
         val config = HikariConfig("/${environment}_hikari.properties")
-        config.schema = "public"
         config.maximumPoolSize = 3
-        config.isAutoCommit = false
-        config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+        config.connectionTimeout = 30000
+        config.leakDetectionThreshold = 2000
         config.validate()
         val ds = HikariDataSource(config)
         Database.connect(ds)
