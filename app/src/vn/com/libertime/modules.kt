@@ -1,4 +1,4 @@
-package vn.com.libertime.di
+package vn.com.libertime
 
 import org.koin.core.component.KoinApiExtension
 import vn.com.libertime.adapter.di.AuthTokenProvider

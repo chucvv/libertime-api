@@ -1,4 +1,4 @@
-package vn.com.libertime.application
+package vn.com.libertime
 
 import io.ktor.config.*
 import io.ktor.util.*

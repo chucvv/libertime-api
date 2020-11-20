@@ -1,10 +1,10 @@
-package vn.com.libertime.statuspages
+package vn.com.libertime.adapter.client_side.statuspages
 
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
-import vn.com.libertime.shared.functions.library.FailureMessages
+import vn.com.libertime.adapter.client_side.FailureMessages
 
 data class SystemException(override val message: String? = FailureMessages.MESSAGE_FAILED) : Exception()
 data class BusinessException(override val message: String? = FailureMessages.MESSAGE_FAILED) : Exception()

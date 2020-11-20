@@ -1,4 +1,4 @@
-package vn.com.libertime.shared.functions.library
+package vn.com.libertime.adapter.client_side
 
 object FailureMessages {
     const val MESSAGE_MISSING_CREDENTIALS = "Required 'username' or 'password' missing."

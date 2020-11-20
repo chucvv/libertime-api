@@ -1,4 +1,4 @@
-package vn.com.libertime.application
+package vn.com.libertime
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
@@ -13,14 +13,13 @@ import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
-import vn.com.libertime.adapter.configuration.AppConfigurable
+import vn.com.libertime.adapter.client_side.statuspages.businessStatusPages
+import vn.com.libertime.adapter.client_side.statuspages.commonStatusPages
 import vn.com.libertime.adapter.client_side.um.controller.AuthController
 import vn.com.libertime.adapter.client_side.um.controller.UserController
-import vn.com.libertime.route.auth
-import vn.com.libertime.route.user
-import vn.com.libertime.statuspages.businessStatusPages
-import vn.com.libertime.statuspages.commonStatusPages
-import vn.com.libertime.utilities.isProduction
+import vn.com.libertime.adapter.client_side.um.route.auth
+import vn.com.libertime.adapter.client_side.um.route.user
+import vn.com.libertime.adapter.configuration.AppConfigurable
 
 fun Application.setupCommonModules(environment: String) {
     install(CORS) {

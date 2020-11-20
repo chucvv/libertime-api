@@ -1,12 +1,15 @@
-package vn.com.libertime.extension
+package vn.com.libertime.adapter.client_side
 
 import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.response.*
 import io.ktor.util.pipeline.*
+import vn.com.libertime.adapter.client_side.um.model.Credential
 import vn.com.libertime.common.Response
-import vn.com.libertime.shared.functions.library.generateHttpResponse
 
 suspend fun PipelineContext<Unit, ApplicationCall>.respond(response: Response) {
     val httpResponse = generateHttpResponse(response)
     call.respond(httpResponse.code, httpResponse.body)
 }
+
+val ApplicationCall.user get() = authentication.principal<Credential>()

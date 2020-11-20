@@ -1,4 +1,4 @@
-package vn.com.libertime.application
+package vn.com.libertime
 
 const val defaultEnvironment = "sandbox"
 const val productionEnvironment = "production"

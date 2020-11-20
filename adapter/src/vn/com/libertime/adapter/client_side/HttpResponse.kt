@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vn.com.libertime.shared.functions.library
+package vn.com.libertime.adapter.client_side
 
 import io.ktor.http.*
 import vn.com.libertime.common.Response
