@@ -3,8 +3,8 @@ package vn.com.libertime.auth
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
-import vn.com.libertime.um.domain.entity.Credential
-import vn.com.libertime.um.domain.entity.CredentialEntity
+import vn.com.libertime.usermanagement.domain.entity.Credential
+import vn.com.libertime.usermanagement.domain.entity.CredentialEntity
 import java.util.*
 
 const val claim = "id"

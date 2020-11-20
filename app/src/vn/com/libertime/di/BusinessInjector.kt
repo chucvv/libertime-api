@@ -2,11 +2,11 @@ package vn.com.libertime.di
 
 import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
-import vn.com.libertime.um.domain.usecase.*
-import vn.com.libertime.um.presentation.controller.AuthController
-import vn.com.libertime.um.presentation.controller.DefaultUserController
-import vn.com.libertime.um.presentation.controller.DefaultAuthController
-import vn.com.libertime.um.presentation.controller.UserController
+import vn.com.libertime.usermanagement.domain.usecase.*
+import vn.com.libertime.usermanagement.presentation.controller.AuthController
+import vn.com.libertime.usermanagement.presentation.controller.DefaultUserController
+import vn.com.libertime.usermanagement.presentation.controller.DefaultAuthController
+import vn.com.libertime.usermanagement.presentation.controller.UserController
 
 @KoinApiExtension
 object BusinessInjector {

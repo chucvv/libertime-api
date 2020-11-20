@@ -19,9 +19,9 @@ import vn.com.libertime.route.auth
 import vn.com.libertime.route.user
 import vn.com.libertime.statuspages.businessStatusPages
 import vn.com.libertime.statuspages.commonStatusPages
-import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
-import vn.com.libertime.um.presentation.controller.AuthController
-import vn.com.libertime.um.presentation.controller.UserController
+import vn.com.libertime.usermanagement.domain.usecase.GetUserByIdUseCase
+import vn.com.libertime.usermanagement.presentation.controller.AuthController
+import vn.com.libertime.usermanagement.presentation.controller.UserController
 import vn.com.libertime.utilities.isProduction
 
 fun Application.setupCommonModules(environment: String) {

@@ -13,19 +13,20 @@ class Database(private val environment: String) {
     private val tables = arrayOf(Users, UserProfiles)
 
     init {
-        connect()
-        transaction {
+        val db = connect()
+        transaction(db) {
             SchemaUtils.createMissingTablesAndColumns(*tables)
         }
     }
 
-    private fun connect() {
-        val config = HikariConfig("/${environment}_hikari.properties")
-        config.maximumPoolSize = 3
-        config.connectionTimeout = 30000
-        config.leakDetectionThreshold = 2000
-        config.validate()
+    private fun connect(): Database {
+        val config = HikariConfig("/${environment}_hikari.properties").apply {
+            maximumPoolSize = 3
+            connectionTimeout = 30000
+            leakDetectionThreshold = 2000
+            validate()
+        }
         val ds = HikariDataSource(config)
-        Database.connect(ds)
+        return Database.connect(ds)
     }
 }

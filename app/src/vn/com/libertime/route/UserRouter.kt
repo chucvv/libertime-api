@@ -8,9 +8,9 @@ import vn.com.libertime.auth.user
 import vn.com.libertime.shared.functions.library.FailureMessages
 import vn.com.libertime.shared.functions.library.extension.respond
 import vn.com.libertime.statuspages.AuthorizationException
-import vn.com.libertime.um.domain.entity.Credential
-import vn.com.libertime.um.presentation.controller.UserController
-import vn.com.libertime.um.presentation.model.request.UpdateProfileRequest
+import vn.com.libertime.usermanagement.domain.entity.Credential
+import vn.com.libertime.usermanagement.presentation.controller.UserController
+import vn.com.libertime.usermanagement.presentation.model.request.UpdateProfileRequest
 
 fun Route.user(controller: UserController) {
     route("me") {

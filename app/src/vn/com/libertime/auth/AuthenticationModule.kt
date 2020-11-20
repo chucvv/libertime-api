@@ -7,8 +7,8 @@ import io.ktor.auth.jwt.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import vn.com.libertime.shared.functions.library.takeSuccess
-import vn.com.libertime.um.domain.entity.Credential
-import vn.com.libertime.um.domain.usecase.GetUserByIdUseCase
+import vn.com.libertime.usermanagement.domain.entity.Credential
+import vn.com.libertime.usermanagement.domain.usecase.GetUserByIdUseCase
 
 val ApplicationCall.user get() = authentication.principal<Credential>()
 
