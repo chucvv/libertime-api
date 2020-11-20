@@ -11,7 +11,6 @@ import vn.com.libertime.adapter.client_side.um.controller.AuthController
 import vn.com.libertime.adapter.client_side.um.request.LoginRequest
 import vn.com.libertime.adapter.client_side.um.request.RegisterRequest
 
-@KoinApiExtension
 fun Route.auth(controller: AuthController) {
 
     post("user") {

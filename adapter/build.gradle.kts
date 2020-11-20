@@ -17,6 +17,9 @@ dependencies {
     implementation(project(":port"))
     implementation(project(":common"))
 
+    implementation("io.ktor:ktor-locations:$ktorVersion")
+    implementation("io.ktor:ktor-jackson:$ktorVersion")
+
     implementation("io.ktor:ktor-auth:$ktorVersion")
 
     implementation("io.lettuce:lettuce-core:$lettuceVersion")

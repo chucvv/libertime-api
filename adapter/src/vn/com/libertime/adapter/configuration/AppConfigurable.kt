@@ -1,7 +1,7 @@
 package vn.com.libertime.adapter.configuration
 
-import io.ktor.auth.*
+import io.ktor.application.*
 
 interface AppConfigurable {
-    fun apply(configurable: Authentication.Configuration)
+    fun apply(application: Application)
 }
