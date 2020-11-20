@@ -1,10 +1,9 @@
-package vn.com.libertime.adapter.client_side.statuspages
+package vn.com.libertime.adapter.statuspages
 
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
-import vn.com.libertime.adapter.client_side.FailureMessages
 import vn.com.libertime.common.State
 import vn.com.libertime.common.generateResponse
 

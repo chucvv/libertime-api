@@ -4,13 +4,13 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
-import vn.com.libertime.adapter.client_side.FailureMessages
-import vn.com.libertime.adapter.client_side.respond
-import vn.com.libertime.adapter.client_side.statuspages.AuthorizationException
+import vn.com.libertime.adapter.statuspages.FailureMessages
+import vn.com.libertime.adapter.extension.respond
 import vn.com.libertime.adapter.client_side.um.controller.UserController
 import vn.com.libertime.adapter.client_side.um.model.Credential
 import vn.com.libertime.adapter.client_side.um.request.UpdateProfileRequest
-import vn.com.libertime.adapter.client_side.user
+import vn.com.libertime.adapter.extension.user
+import vn.com.libertime.adapter.statuspages.AuthorizationException
 
 fun Route.user(controller: UserController) {
     route("me") {

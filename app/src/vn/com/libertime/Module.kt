@@ -13,13 +13,13 @@ import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
-import vn.com.libertime.adapter.client_side.statuspages.businessStatusPages
-import vn.com.libertime.adapter.client_side.statuspages.commonStatusPages
 import vn.com.libertime.adapter.client_side.um.controller.AuthController
 import vn.com.libertime.adapter.client_side.um.controller.UserController
 import vn.com.libertime.adapter.client_side.um.route.auth
 import vn.com.libertime.adapter.client_side.um.route.user
 import vn.com.libertime.adapter.configuration.AppConfigurable
+import vn.com.libertime.adapter.statuspages.businessStatusPages
+import vn.com.libertime.adapter.statuspages.commonStatusPages
 
 fun Application.setupCommonModules(environment: String) {
     install(CORS) {
