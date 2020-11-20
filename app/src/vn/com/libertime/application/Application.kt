@@ -9,10 +9,10 @@ import io.ktor.util.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
-import vn.com.libertime.Database
-import vn.com.libertime.Redis
-import vn.com.libertime.adapter.um.model.Credential
-import vn.com.libertime.adapter.um.service.JwtConfigService
+import vn.com.libertime.adapter.server_side.database.Database
+import vn.com.libertime.adapter.server_side.cache.Redis
+import vn.com.libertime.adapter.client_side.um.model.Credential
+import vn.com.libertime.adapter.server_side.service.JwtConfigService
 import vn.com.libertime.di.injectedModules
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)

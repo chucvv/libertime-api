@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.um.service
+package vn.com.libertime.adapter.server_side.service
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier

@@ -4,8 +4,8 @@ import com.auth0.jwt.interfaces.JWTVerifier
 import org.koin.dsl.module
 import vn.com.libertime.adapter.configuration.AppConfigurable
 import vn.com.libertime.adapter.configuration.JwtAppConfiguration
-import vn.com.libertime.adapter.um.service.BCryptPassword
-import vn.com.libertime.adapter.um.service.JwtConfigService
+import vn.com.libertime.adapter.server_side.service.BCryptPassword
+import vn.com.libertime.adapter.server_side.service.JwtConfigService
 import vn.com.libertime.port.um.required.PasswordEncryptable
 import vn.com.libertime.port.um.required.TokenProvidable
 

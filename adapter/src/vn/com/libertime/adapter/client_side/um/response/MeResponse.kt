@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.um.response
+package vn.com.libertime.adapter.client_side.um.response
 
 import vn.com.libertime.port.um.entity.UserInfo
 

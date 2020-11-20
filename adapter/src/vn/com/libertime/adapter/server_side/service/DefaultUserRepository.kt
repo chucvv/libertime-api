@@ -1,10 +1,10 @@
-package vn.com.libertime.adapter.um.service
+package vn.com.libertime.adapter.server_side.service
 
-import vn.com.libertime.adapter.um.model.toUserEntity
-import vn.com.libertime.adapter.um.model.toUserProfileEntity
-import vn.com.libertime.dao.CreateUserDaoParam
-import vn.com.libertime.dao.UpdateUserDaoParam
-import vn.com.libertime.dao.UserDao
+import vn.com.libertime.adapter.server_side.database.dao.CreateUserDaoParam
+import vn.com.libertime.adapter.server_side.database.dao.UpdateUserDaoParam
+import vn.com.libertime.adapter.server_side.database.dao.UserDao
+import vn.com.libertime.adapter.client_side.um.model.toUserEntity
+import vn.com.libertime.adapter.client_side.um.model.toUserProfileEntity
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
 import vn.com.libertime.port.um.required.RegisterParam

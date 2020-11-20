@@ -1,4 +1,4 @@
-package vn.com.libertime.dao
+package vn.com.libertime.adapter.server_side.database.dao
 
 import vn.com.libertime.entity.EntityUser
 import vn.com.libertime.entity.EntityUserProfile

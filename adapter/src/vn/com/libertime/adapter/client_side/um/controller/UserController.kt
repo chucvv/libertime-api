@@ -1,7 +1,7 @@
-package vn.com.libertime.adapter.um.controller
+package vn.com.libertime.adapter.client_side.um.controller
 
-import vn.com.libertime.adapter.um.response.MeResponse
-import vn.com.libertime.adapter.um.response.UserProfileResponse
+import vn.com.libertime.adapter.client_side.um.response.MeResponse
+import vn.com.libertime.adapter.client_side.um.response.UserProfileResponse
 import vn.com.libertime.common.Result
 import vn.com.libertime.common.extension.exhaustive
 import vn.com.libertime.common.takeException

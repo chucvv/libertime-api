@@ -3,8 +3,8 @@ package vn.com.libertime.adapter.configuration
 import com.auth0.jwt.interfaces.JWTVerifier
 import io.ktor.auth.*
 import io.ktor.auth.jwt.*
-import vn.com.libertime.adapter.um.model.toCredential
-import vn.com.libertime.adapter.um.service.claim
+import vn.com.libertime.adapter.client_side.um.model.toCredential
+import vn.com.libertime.adapter.server_side.service.claim
 import vn.com.libertime.common.takeSuccess
 import vn.com.libertime.port.um.provided.UserService
 

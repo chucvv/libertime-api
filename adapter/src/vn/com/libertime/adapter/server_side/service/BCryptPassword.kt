@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.um.service
+package vn.com.libertime.adapter.server_side.service
 
 import org.mindrot.jbcrypt.BCrypt
 import vn.com.libertime.port.um.required.PasswordEncryptable

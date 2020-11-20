@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.um.request
+package vn.com.libertime.adapter.client_side.um.request
 
 import vn.com.libertime.port.um.required.UpdateUserParam
 

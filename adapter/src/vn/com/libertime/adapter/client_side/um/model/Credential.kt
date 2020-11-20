@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.um.model
+package vn.com.libertime.adapter.client_side.um.model
 
 import io.ktor.auth.*
 import vn.com.libertime.port.um.entity.User

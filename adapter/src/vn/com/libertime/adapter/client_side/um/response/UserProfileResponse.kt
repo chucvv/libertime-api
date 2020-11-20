@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.um.response
+package vn.com.libertime.adapter.client_side.um.response
 
 import vn.com.libertime.common.Response
 import vn.com.libertime.common.State

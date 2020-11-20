@@ -1,4 +1,4 @@
-package vn.com.libertime
+package vn.com.libertime.adapter.server_side.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource

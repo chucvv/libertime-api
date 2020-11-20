@@ -2,6 +2,8 @@ val ktorVersion: String by project
 val exposedVersion: String by project
 val koinVersion: String by project
 val bcryptVersion: String by project
+val hikariCpVersion: String by project
+val lettuceVersion: String by project
 
 plugins {
     kotlin("jvm")
@@ -16,6 +18,10 @@ dependencies {
     implementation(project(":common"))
 
     implementation("io.ktor:ktor-auth:$ktorVersion")
+
+    implementation("io.lettuce:lettuce-core:$lettuceVersion")
+
+    implementation("com.zaxxer:HikariCP:$hikariCpVersion")
 
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
