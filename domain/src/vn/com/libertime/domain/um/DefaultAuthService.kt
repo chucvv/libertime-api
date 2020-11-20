@@ -1,10 +1,10 @@
 package vn.com.libertime.domain.um
 
 import vn.com.libertime.common.Result
-import vn.com.libertime.port.provided.entity.CredentialEntity
-import vn.com.libertime.port.provided.user_auth.AuthService
-import vn.com.libertime.port.provided.user_auth.LoginParam
-import vn.com.libertime.port.provided.user_auth.RegisterParam
+import vn.com.libertime.port.um.entity.CredentialEntity
+import vn.com.libertime.port.um.provided.AuthService
+import vn.com.libertime.port.um.provided.LoginParam
+import vn.com.libertime.port.um.required.RegisterParam
 
 class DefaultAuthService(
     private val loginUseCase: LoginUseCase,

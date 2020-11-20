@@ -2,8 +2,8 @@ package vn.com.libertime.domain.um
 
 import vn.com.libertime.common.Result
 import vn.com.libertime.common.UseCase
-import vn.com.libertime.port.provided.entity.UserInfo
-import vn.com.libertime.port.required.UserRepository
+import vn.com.libertime.port.um.entity.UserInfo
+import vn.com.libertime.port.um.required.UserRepository
 
 class GetUserByIdUseCase(private val userService: UserRepository) : UseCase<String, UserInfo> {
     override suspend operator fun invoke(userId: String): Result<UserInfo> {

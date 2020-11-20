@@ -14,8 +14,8 @@ import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
 import vn.com.libertime.adapter.configuration.AppConfigurable
-import vn.com.libertime.adapter.user_management.controller.AuthController
-import vn.com.libertime.adapter.user_management.controller.UserController
+import vn.com.libertime.adapter.um.controller.AuthController
+import vn.com.libertime.adapter.um.controller.UserController
 import vn.com.libertime.route.auth
 import vn.com.libertime.route.user
 import vn.com.libertime.statuspages.businessStatusPages

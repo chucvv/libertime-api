@@ -11,8 +11,8 @@ import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
 import vn.com.libertime.Database
 import vn.com.libertime.Redis
-import vn.com.libertime.adapter.user_management.model.Credential
-import vn.com.libertime.adapter.user_management.service.JwtConfigService
+import vn.com.libertime.adapter.um.model.Credential
+import vn.com.libertime.adapter.um.service.JwtConfigService
 import vn.com.libertime.di.injectedModules
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)

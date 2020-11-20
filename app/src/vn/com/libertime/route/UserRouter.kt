@@ -4,9 +4,9 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
-import vn.com.libertime.adapter.user_management.controller.UserController
-import vn.com.libertime.adapter.user_management.model.Credential
-import vn.com.libertime.adapter.user_management.request.UpdateProfileRequest
+import vn.com.libertime.adapter.um.controller.UserController
+import vn.com.libertime.adapter.um.model.Credential
+import vn.com.libertime.adapter.um.request.UpdateProfileRequest
 import vn.com.libertime.application.user
 import vn.com.libertime.extension.respond
 import vn.com.libertime.shared.functions.library.FailureMessages

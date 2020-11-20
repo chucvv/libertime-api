@@ -5,9 +5,9 @@ import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
-import vn.com.libertime.adapter.user_management.controller.AuthController
-import vn.com.libertime.adapter.user_management.request.LoginRequest
-import vn.com.libertime.adapter.user_management.request.RegisterRequest
+import vn.com.libertime.adapter.um.controller.AuthController
+import vn.com.libertime.adapter.um.request.LoginRequest
+import vn.com.libertime.adapter.um.request.RegisterRequest
 import vn.com.libertime.extension.respond
 import vn.com.libertime.shared.functions.library.FailureMessages
 

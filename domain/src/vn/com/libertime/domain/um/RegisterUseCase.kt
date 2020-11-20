@@ -2,15 +2,15 @@ package vn.com.libertime.domain.um
 
 import vn.com.libertime.common.Result
 import vn.com.libertime.common.UseCase
-import vn.com.libertime.port.provided.entity.CredentialEntity
-import vn.com.libertime.port.provided.user_auth.RegisterParam
-import vn.com.libertime.port.required.EncryptedPassword
-import vn.com.libertime.port.required.TokenProvidable
-import vn.com.libertime.port.required.UserRepository
+import vn.com.libertime.port.um.entity.CredentialEntity
+import vn.com.libertime.port.um.required.PasswordEncryptable
+import vn.com.libertime.port.um.required.RegisterParam
+import vn.com.libertime.port.um.required.TokenProvidable
+import vn.com.libertime.port.um.required.UserRepository
 
 class RegisterUseCase(
     private val userService: UserRepository,
-    private val encryptedPassword: EncryptedPassword,
+    private val encryptedPassword: PasswordEncryptable,
     private val tokenProvider: TokenProvidable
 ) : UseCase<RegisterParam, CredentialEntity> {
 
