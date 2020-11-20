@@ -1,6 +1,5 @@
 package vn.com.libertime.application
 
-import com.auth0.jwt.interfaces.JWTVerifier
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
 import io.ktor.auth.*
@@ -14,14 +13,13 @@ import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
-import vn.com.libertime.auth.authenticationModule
+import vn.com.libertime.adapter.configuration.AppConfigurable
+import vn.com.libertime.adapter.user_management.controller.AuthController
+import vn.com.libertime.adapter.user_management.controller.UserController
 import vn.com.libertime.route.auth
 import vn.com.libertime.route.user
 import vn.com.libertime.statuspages.businessStatusPages
 import vn.com.libertime.statuspages.commonStatusPages
-import vn.com.libertime.usermanagement.domain.usecase.GetUserByIdUseCase
-import vn.com.libertime.usermanagement.presentation.controller.AuthController
-import vn.com.libertime.usermanagement.presentation.controller.UserController
 import vn.com.libertime.utilities.isProduction
 
 fun Application.setupCommonModules(environment: String) {
@@ -57,11 +55,9 @@ fun Application.setupBusinessModules() {
         businessStatusPages()
     }
 
-    val jwtVerifier by inject<JWTVerifier>()
-    val getUserByIdUseCase by inject<GetUserByIdUseCase>()
-
+    val jwtVerifier by inject<AppConfigurable>()
     install(Authentication) {
-        authenticationModule(getUserByIdUseCase, jwtVerifier)
+        jwtVerifier.apply(this)
     }
 
     val authController by inject<AuthController>()

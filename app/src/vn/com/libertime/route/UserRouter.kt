@@ -4,13 +4,13 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
-import vn.com.libertime.auth.user
+import vn.com.libertime.adapter.user_management.controller.UserController
+import vn.com.libertime.adapter.user_management.model.Credential
+import vn.com.libertime.adapter.user_management.request.UpdateProfileRequest
+import vn.com.libertime.application.user
+import vn.com.libertime.extension.respond
 import vn.com.libertime.shared.functions.library.FailureMessages
-import vn.com.libertime.shared.functions.library.extension.respond
 import vn.com.libertime.statuspages.AuthorizationException
-import vn.com.libertime.usermanagement.domain.entity.Credential
-import vn.com.libertime.usermanagement.presentation.controller.UserController
-import vn.com.libertime.usermanagement.presentation.model.request.UpdateProfileRequest
 
 fun Route.user(controller: UserController) {
     route("me") {

@@ -5,11 +5,11 @@ import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import org.koin.core.component.KoinApiExtension
+import vn.com.libertime.adapter.user_management.controller.AuthController
+import vn.com.libertime.adapter.user_management.request.LoginRequest
+import vn.com.libertime.adapter.user_management.request.RegisterRequest
+import vn.com.libertime.extension.respond
 import vn.com.libertime.shared.functions.library.FailureMessages
-import vn.com.libertime.shared.functions.library.extension.respond
-import vn.com.libertime.usermanagement.presentation.controller.AuthController
-import vn.com.libertime.usermanagement.presentation.model.request.LoginRequest
-import vn.com.libertime.usermanagement.presentation.model.request.RegisterRequest
 
 @KoinApiExtension
 fun Route.auth(controller: AuthController) {

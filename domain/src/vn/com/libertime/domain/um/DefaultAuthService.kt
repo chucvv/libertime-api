@@ -1,0 +1,15 @@
+package vn.com.libertime.domain.um
+
+import vn.com.libertime.common.Result
+import vn.com.libertime.port.provided.entity.CredentialEntity
+import vn.com.libertime.port.provided.user_auth.AuthService
+import vn.com.libertime.port.provided.user_auth.LoginParam
+import vn.com.libertime.port.provided.user_auth.RegisterParam
+
+class DefaultAuthService(
+    private val loginUseCase: LoginUseCase,
+    private val registerUseCase: RegisterUseCase
+) : AuthService {
+    override suspend fun login(params: LoginParam): Result<CredentialEntity> = loginUseCase(params)
+    override suspend fun register(params: RegisterParam): Result<CredentialEntity> = registerUseCase(params)
+}

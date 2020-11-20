@@ -7,3 +7,7 @@
 *.iws
 /app/build/
 /database/build/
+/adapter/build/
+/common/build/
+/domain/build/
+/port/build/

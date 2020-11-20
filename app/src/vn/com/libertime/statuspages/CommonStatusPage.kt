@@ -4,9 +4,9 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
+import vn.com.libertime.common.State
+import vn.com.libertime.common.generateResponse
 import vn.com.libertime.shared.functions.library.FailureMessages
-import vn.com.libertime.shared.functions.library.State
-import vn.com.libertime.shared.functions.library.generateResponse
 
 fun StatusPages.Configuration.commonStatusPages() {
     status(HttpStatusCode.InternalServerError) {
