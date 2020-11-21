@@ -3,15 +3,19 @@ package vn.com.libertime.adapter.server_side.service
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
+import io.ktor.util.*
+import vn.com.libertime.adapter.configuration.Config
 import vn.com.libertime.port.um.entity.CredentialEntity
 import vn.com.libertime.port.um.required.TokenProvidable
 import java.util.*
 
 internal const val claim = "id"
 
-internal class JwtConfigService private constructor(secret: String) : TokenProvidable {
-    private val algorithm = Algorithm.HMAC256(secret)
-    val verifier: JWTVerifier = JWT.require(algorithm)
+@KtorExperimentalAPI
+public class JwtConfigService(config: Config) : TokenProvidable {
+    private val algorithm = Algorithm.HMAC256(config.HASH_SECRET_KEY)
+
+    public val verifier: JWTVerifier = JWT.require(algorithm)
         .withIssuer(issuer)
         .withAudience(audience)
         .build()
@@ -23,7 +27,7 @@ internal class JwtConfigService private constructor(secret: String) : TokenProvi
     /**
      * Produce token and refresh token for this combination of User and Account
      */
-    override fun createTokens(userId: String) = CredentialEntity(
+    override fun createTokens(userId: String): CredentialEntity = CredentialEntity(
         createToken(userId, getTokenExpiration()),
         createToken(userId, getTokenExpiration(refreshValidityInMs))
     )
@@ -41,17 +45,7 @@ internal class JwtConfigService private constructor(secret: String) : TokenProvi
      */
     private fun getTokenExpiration(validity: Long = validityInMs) = Date(System.currentTimeMillis() + validity)
 
-    companion object {
-        lateinit var instance: JwtConfigService
-
-        fun initialize(secret: String) {
-            synchronized(this) {
-                if (!this::instance.isInitialized) {
-                    instance = JwtConfigService(secret)
-                }
-            }
-        }
-
+    public companion object {
         private const val issuer = "libertime.com.vn.issuer"
         private const val audience = "libertime.com.vn"
         private const val validityInMs: Long = 3600000L * 24L

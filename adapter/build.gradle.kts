@@ -3,6 +3,7 @@ val exposedVersion: String by project
 val koinVersion: String by project
 val bcryptVersion: String by project
 val lettuceVersion: String by project
+val hikariCpVersion: String by project
 
 plugins {
     kotlin("jvm")
@@ -31,6 +32,8 @@ dependencies {
 
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
+
+    implementation("com.zaxxer:HikariCP:$hikariCpVersion")
 
     implementation("org.mindrot:jbcrypt:$bcryptVersion")
 }

@@ -1,10 +1,10 @@
-package vn.com.libertime.entity
+package vn.com.libertime.database.entity
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.joda.time.DateTime
-import vn.com.libertime.table.UserProfiles
+import vn.com.libertime.database.table.UserProfiles
 import java.util.*
 
 public class EntityUserProfile(id: EntityID<UUID>) : UUIDEntity(id) {

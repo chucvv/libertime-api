@@ -6,10 +6,7 @@ import io.ktor.util.*
 import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.inject
-import vn.com.libertime.adapter.configuration.BusinessAppConfiguration
-import vn.com.libertime.adapter.configuration.CommonAppConfiguration
-import vn.com.libertime.adapter.configuration.JwtAppConfiguration
-import vn.com.libertime.adapter.configuration.ServerSideConfiguration
+import vn.com.libertime.adapter.configuration.ConfigCenter
 
 internal fun main(args: Array<String>): Unit = EngineMain.main(args)
 
@@ -20,15 +17,7 @@ internal fun Application.module() {
             modules(injectedModules)
         }
     }
-    val serverSideConfiguration by inject<ServerSideConfiguration>()
-    serverSideConfiguration.apply(this)
 
-    val commonAppConfiguration by inject<CommonAppConfiguration>()
-    commonAppConfiguration.apply(this)
-
-    val jwtVerifier by inject<JwtAppConfiguration>()
-    jwtVerifier.apply(this)
-
-    val businessAppConfiguration by inject<BusinessAppConfiguration>()
-    businessAppConfiguration.apply(this)
+    val configCenter by inject<ConfigCenter>()
+    configCenter.apply(this)
 }

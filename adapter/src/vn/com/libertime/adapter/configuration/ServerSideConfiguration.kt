@@ -1,34 +1,45 @@
 package vn.com.libertime.adapter.configuration
 
-import com.typesafe.config.ConfigFactory
+import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
-import io.ktor.config.*
-import io.ktor.util.*
-import vn.com.libertime.Database
-import vn.com.libertime.adapter.server_side.cache.Redis
-import vn.com.libertime.adapter.server_side.service.JwtConfigService
+import io.ktor.features.*
+import io.ktor.http.*
+import io.ktor.jackson.*
+import io.ktor.locations.*
+import io.ktor.request.*
+import org.slf4j.event.Level
+import vn.com.libertime.adapter.statuspages.businessStatusPages
+import vn.com.libertime.adapter.statuspages.commonStatusPages
 
-@Suppress("PropertyName")
-@KtorExperimentalAPI
-internal class Config(environment: String, applicationConfig: ApplicationConfig) {
-    val HASH_SECRET_KEY = applicationConfig.property("key.secret").getString()
-    private val redisConfig = applicationConfig.config("redis.$environment")
-    val CACHED_REDIS_HOST = redisConfig.property("host").getString()
-    val CACHED_REDIS_PORT = redisConfig.property("port").getString().toInt()
-    val REDIS_SECRET_KEY = redisConfig.property("secret").getString()
-}
-
-@KtorExperimentalAPI
-public class ServerSideConfiguration(
-    private val environment: String
-) : AppConfigurable {
-
+public class ServerSideConfiguration(private val environment: String) : AppConfigurable {
     override fun apply(application: Application) {
-        val applicationConfig = HoconApplicationConfig(ConfigFactory.load())
-        with(Config(environment, applicationConfig)) {
-            JwtConfigService.initialize(HASH_SECRET_KEY)
-            Redis(CACHED_REDIS_HOST, CACHED_REDIS_PORT, REDIS_SECRET_KEY)
+        application.install(CORS) {
+            method(HttpMethod.Get)
+            method(HttpMethod.Post)
+            method(HttpMethod.Put)
+            method(HttpMethod.Delete)
+            header(HttpHeaders.Authorization)
+            allowCredentials = true
+            anyHost()
         }
-        Database(environment)
+        application.install(Locations)
+        application.install(DefaultHeaders) {
+            header("X-Engine", "Ktor")
+            header("X-Environment", environment)
+        }
+        application.install(CallLogging) {
+            level = Level.INFO
+            filter { call -> call.request.path().startsWith("/") }
+        }
+        application.install(ContentNegotiation) {
+            jackson {
+                enable(SerializationFeature.INDENT_OUTPUT)
+            }
+        }
+        application.install(StatusPages) {
+            commonStatusPages()
+            businessStatusPages()
+        }
     }
+
 }

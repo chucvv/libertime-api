@@ -1,11 +1,11 @@
-package vn.com.libertime.dao
+package vn.com.libertime.database.dao
 
 import org.jetbrains.exposed.sql.transactions.transaction
-import vn.com.libertime.DatabaseException
-import vn.com.libertime.entity.EntityUser
-import vn.com.libertime.entity.EntityUserProfile
-import vn.com.libertime.table.UserProfiles
-import vn.com.libertime.table.Users
+import vn.com.libertime.database.DatabaseException
+import vn.com.libertime.database.entity.EntityUser
+import vn.com.libertime.database.entity.EntityUserProfile
+import vn.com.libertime.database.table.UserProfiles
+import vn.com.libertime.database.table.Users
 import java.util.*
 
 internal class DefaultUserDao : UserDao {

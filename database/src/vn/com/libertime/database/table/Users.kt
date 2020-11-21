@@ -1,4 +1,4 @@
-package vn.com.libertime.table
+package vn.com.libertime.database.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.jodatime.datetime

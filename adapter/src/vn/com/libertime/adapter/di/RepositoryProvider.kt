@@ -8,9 +8,9 @@ import vn.com.libertime.port.um.required.UserRepository
 
 @KoinApiExtension
 public object RepositoryProvider {
-    private val userRepository = module {
+    private val userRepositoryModule = module {
         single { DefaultUserRepository(get()) as UserRepository }
     }
 
-    public val dependencies: List<Module> = listOf(userRepository)
+    public val dependencies: List<Module> = listOf(userRepositoryModule)
 }

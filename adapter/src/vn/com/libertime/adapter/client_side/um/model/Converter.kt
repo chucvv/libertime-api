@@ -1,7 +1,7 @@
 package vn.com.libertime.adapter.client_side.um.model
 
-import vn.com.libertime.entity.EntityUser
-import vn.com.libertime.entity.EntityUserProfile
+import vn.com.libertime.database.entity.EntityUser
+import vn.com.libertime.database.entity.EntityUserProfile
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
 

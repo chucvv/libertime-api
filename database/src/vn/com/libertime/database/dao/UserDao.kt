@@ -1,7 +1,7 @@
-package vn.com.libertime.dao
+package vn.com.libertime.database.dao
 
-import vn.com.libertime.entity.EntityUser
-import vn.com.libertime.entity.EntityUserProfile
+import vn.com.libertime.database.entity.EntityUser
+import vn.com.libertime.database.entity.EntityUserProfile
 
 public data class UpdateUserDaoParam(
     val email: String,
