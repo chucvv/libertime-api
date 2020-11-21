@@ -2,7 +2,7 @@ package vn.com.libertime.adapter.client_side.um.response
 
 import vn.com.libertime.port.um.entity.UserInfo
 
-data class MeResponse(
+public data class MeResponse(
     val userId: String,
     val username: String,
     val email: String?,
@@ -16,8 +16,8 @@ data class MeResponse(
     val lat: Double?,
     val lng: Double?,
 ) {
-    companion object {
-        fun fromUserInfoEntity(userInfoEntity: UserInfo): MeResponse {
+    public companion object {
+        public fun fromUserInfoEntity(userInfoEntity: UserInfo): MeResponse {
             val userInfo = userInfoEntity.user
             val userProfile = userInfoEntity.userProfile
             return MeResponse(

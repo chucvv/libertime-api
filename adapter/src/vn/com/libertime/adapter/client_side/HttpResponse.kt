@@ -23,7 +23,7 @@ import vn.com.libertime.common.State
 /**
  * Represents HTTP response which will be exposed via API.
  */
-sealed class HttpResponse<T : Response> {
+internal sealed class HttpResponse<T : Response> {
     abstract val body: T
     abstract val code: HttpStatusCode
 
@@ -57,7 +57,7 @@ sealed class HttpResponse<T : Response> {
 /**
  * Generates [HttpResponse] from [Response].
  */
-fun generateHttpResponse(response: Response): HttpResponse<Response> {
+internal fun generateHttpResponse(response: Response): HttpResponse<Response> {
     return when (response.status) {
         State.SUCCESS -> HttpResponse.ok(response)
         State.NOT_FOUND -> HttpResponse.notFound(response)

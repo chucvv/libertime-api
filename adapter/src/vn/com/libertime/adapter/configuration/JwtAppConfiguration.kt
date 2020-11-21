@@ -9,7 +9,7 @@ import vn.com.libertime.adapter.server_side.service.claim
 import vn.com.libertime.common.takeSuccess
 import vn.com.libertime.port.um.provided.UserService
 
-class JwtAppConfiguration(
+public class JwtAppConfiguration(
     private val userService: UserService,
     private val tokenVerifier: JWTVerifier
 ) : AppConfigurable {

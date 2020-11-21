@@ -4,13 +4,13 @@ import com.typesafe.config.ConfigFactory
 import io.ktor.application.*
 import io.ktor.config.*
 import io.ktor.util.*
+import vn.com.libertime.Database
 import vn.com.libertime.adapter.server_side.cache.Redis
-import vn.com.libertime.adapter.server_side.database.Database
 import vn.com.libertime.adapter.server_side.service.JwtConfigService
 
 @Suppress("PropertyName")
 @KtorExperimentalAPI
-class Config(environment: String, applicationConfig: ApplicationConfig) {
+internal class Config(environment: String, applicationConfig: ApplicationConfig) {
     val HASH_SECRET_KEY = applicationConfig.property("key.secret").getString()
     private val redisConfig = applicationConfig.config("redis.$environment")
     val CACHED_REDIS_HOST = redisConfig.property("host").getString()
@@ -19,7 +19,7 @@ class Config(environment: String, applicationConfig: ApplicationConfig) {
 }
 
 @KtorExperimentalAPI
-class ServerSideConfiguration(
+public class ServerSideConfiguration(
     private val environment: String
 ) : AppConfigurable {
 

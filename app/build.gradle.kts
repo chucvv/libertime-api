@@ -31,6 +31,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":adapter"))
     implementation(project(":common"))
+    implementation(project(":database"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")

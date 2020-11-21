@@ -3,7 +3,7 @@ package vn.com.libertime.port.um.required
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
 
-data class UpdateUserParam(
+public data class UpdateUserParam(
     val userId: String,
     val email: String,
     val firstname: String,
@@ -17,12 +17,12 @@ data class UpdateUserParam(
     val lng: Double?,
 )
 
-data class RegisterParam(val userName: String, val password: String)
+public data class RegisterParam(val userName: String, val password: String)
 
-interface UserRepository {
-    suspend fun createUser(registerParam: RegisterParam): String
-    suspend fun updateUser(updateUserParam: UpdateUserParam): String
-    suspend fun getUserByName(username: String): User?
-    suspend fun getUserById(userid: String): User?
-    suspend fun getUserProfileById(userid: String): UserProfile?
+public interface UserRepository {
+    public suspend fun createUser(registerParam: RegisterParam): String
+    public suspend fun updateUser(updateUserParam: UpdateUserParam): String
+    public suspend fun getUserByName(username: String): User?
+    public suspend fun getUserById(userid: String): User?
+    public suspend fun getUserProfileById(userid: String): UserProfile?
 }

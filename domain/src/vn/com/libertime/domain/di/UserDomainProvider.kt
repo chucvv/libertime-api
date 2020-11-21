@@ -1,13 +1,14 @@
 package vn.com.libertime.domain.di
 
 import org.koin.core.component.KoinApiExtension
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.domain.um.*
 import vn.com.libertime.port.um.provided.AuthService
 import vn.com.libertime.port.um.provided.UserService
 
 @KoinApiExtension
-object UserDomainProvider {
+public object UserDomainProvider {
     private val usecases = module {
         factory { LoginUseCase(get(), get(), get()) }
         factory { RegisterUseCase(get(), get(), get()) }
@@ -20,5 +21,5 @@ object UserDomainProvider {
         factory { DefaultUserService(get(), get()) as UserService }
     }
 
-    val dependencies = listOf(usecases, services)
+    public val dependencies: List<Module> = listOf(usecases, services)
 }

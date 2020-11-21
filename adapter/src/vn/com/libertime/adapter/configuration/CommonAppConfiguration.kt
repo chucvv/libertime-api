@@ -11,7 +11,7 @@ import org.slf4j.event.Level
 import vn.com.libertime.adapter.statuspages.businessStatusPages
 import vn.com.libertime.adapter.statuspages.commonStatusPages
 
-class CommonAppConfiguration(private val environment: String) : AppConfigurable {
+public class CommonAppConfiguration(private val environment: String) : AppConfigurable {
     override fun apply(application: Application) {
         application.install(CORS) {
             method(HttpMethod.Get)

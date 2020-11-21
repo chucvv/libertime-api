@@ -2,7 +2,7 @@ package vn.com.libertime.adapter.client_side.um.request
 
 import vn.com.libertime.port.um.required.UpdateUserParam
 
-data class UpdateProfileRequest(
+internal data class UpdateProfileRequest(
     val email: String,
     val firstname: String,
     val lastname: String,

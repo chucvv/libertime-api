@@ -4,7 +4,7 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.jodatime.datetime
 import org.joda.time.DateTime
 
-object Users : UUIDTable() {
+internal object Users : UUIDTable() {
     val username = varchar("username", length = 100)
     val password = varchar("password", length = 100)
     val firstname = varchar("firstname", length = 50).nullable()

@@ -8,12 +8,12 @@ import vn.com.libertime.common.takeException
 import vn.com.libertime.port.um.provided.UserService
 import vn.com.libertime.port.um.required.UpdateUserParam
 
-interface UserController {
-    suspend fun getProfile(userId: String): UserProfileResponse
-    suspend fun updateProfile(updateUserParam: UpdateUserParam): UserProfileResponse
+public interface UserController {
+    public suspend fun getProfile(userId: String): UserProfileResponse
+    public suspend fun updateProfile(updateUserParam: UpdateUserParam): UserProfileResponse
 }
 
-class DefaultUserController(private val userService: UserService) : UserController {
+internal class DefaultUserController(private val userService: UserService) : UserController {
 
     override suspend fun getProfile(userId: String): UserProfileResponse =
         when (val result = userService.getUser(userId)) {

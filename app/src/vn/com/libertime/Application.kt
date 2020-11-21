@@ -11,10 +11,10 @@ import vn.com.libertime.adapter.configuration.BusinessAppConfiguration
 import vn.com.libertime.adapter.configuration.CommonAppConfiguration
 import vn.com.libertime.adapter.configuration.ServerSideConfiguration
 
-fun main(args: Array<String>): Unit = EngineMain.main(args)
+internal fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 @KtorExperimentalAPI
-fun Application.module() {
+internal fun Application.module() {
     module {
         install(Koin) {
             modules(injectedModules)

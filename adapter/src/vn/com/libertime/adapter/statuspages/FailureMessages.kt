@@ -1,6 +1,6 @@
 package vn.com.libertime.adapter.statuspages
 
-object FailureMessages {
+internal object FailureMessages {
     const val MESSAGE_MISSING_CREDENTIALS = "Required 'username' or 'password' missing."
     const val MESSAGE_MISSING_ARGUMENTS = "Missing required fields"
 

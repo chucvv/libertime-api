@@ -1,6 +1,6 @@
 package vn.com.libertime.adapter.server_side
 
-const val defaultEnvironment = "sandbox"
-const val productionEnvironment = "production"
+internal const val defaultEnvironment = "sandbox"
+internal const val productionEnvironment = "production"
 
-fun isProduction(environment: String): Boolean = environment == productionEnvironment
+internal fun isProduction(environment: String): Boolean = environment == productionEnvironment

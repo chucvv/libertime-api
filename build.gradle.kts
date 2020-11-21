@@ -30,6 +30,7 @@ subprojects {
     tasks.withType<KotlinCompile>().configureEach {
         println("Configuring $name in project ${project.name}...")
         kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict" // or '-Xexplicit-api=warning'
             suppressWarnings = true
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }

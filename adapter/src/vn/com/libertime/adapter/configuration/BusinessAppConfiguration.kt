@@ -9,7 +9,7 @@ import vn.com.libertime.adapter.client_side.um.controller.UserController
 import vn.com.libertime.adapter.client_side.um.route.auth
 import vn.com.libertime.adapter.client_side.um.route.user
 
-class BusinessAppConfiguration(
+public class BusinessAppConfiguration(
     private val authController: AuthController,
     private val userController: UserController
 ) : AppConfigurable {

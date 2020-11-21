@@ -7,25 +7,25 @@ import vn.com.libertime.port.um.entity.CredentialEntity
 /**
  * Response model used in Authentication API. For e.g. Login/Register.
  */
-data class AuthResponse(
+public data class AuthResponse(
     override val status: State,
     override val message: String? = null,
     val credential: CredentialEntity? = null
 ) : Response {
 
-    companion object {
+    public companion object {
 
-        fun failed(message: String?) = AuthResponse(
+        public fun failed(message: String?): AuthResponse = AuthResponse(
             status = State.FAILED,
             message = message
         )
 
-        fun unauthorized(message: String?) = AuthResponse(
+        public fun unauthorized(message: String?): AuthResponse = AuthResponse(
             status = State.UNAUTHORIZED,
             message = message
         )
 
-        fun success(token: CredentialEntity) = AuthResponse(
+        public fun success(token: CredentialEntity): AuthResponse = AuthResponse(
             status = State.SUCCESS,
             credential = token
         )

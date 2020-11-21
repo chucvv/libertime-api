@@ -9,7 +9,7 @@ import io.ktor.util.*
  */
 @Suppress("PropertyName")
 @KtorExperimentalAPI
-class Config(environment: String, applicationConfig: ApplicationConfig) {
+internal class Config(environment: String, applicationConfig: ApplicationConfig) {
     val HASH_SECRET_KEY = applicationConfig.property("key.secret").getString()
     private val redisConfig = applicationConfig.config("redis.$environment")
     val CACHED_REDIS_HOST = redisConfig.property("host").getString()

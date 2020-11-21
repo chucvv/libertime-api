@@ -1,5 +1,7 @@
 val exposedVersion: String by project
 val postgresqlVersion: String by project
+val hikariCpVersion: String by project
+val koinVersion: String by project
 
 plugins {
     kotlin("jvm")
@@ -15,4 +17,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
 
     implementation("org.postgresql:postgresql:$postgresqlVersion")
+
+    implementation("com.zaxxer:HikariCP:$hikariCpVersion")
+
+    implementation("org.koin:koin-core:$koinVersion")
+    implementation("org.koin:koin-ktor:$koinVersion")
 }

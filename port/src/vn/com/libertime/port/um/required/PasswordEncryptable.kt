@@ -1,6 +1,6 @@
 package vn.com.libertime.port.um.required
 
-interface PasswordEncryptable {
-    fun validatePassword(attempt: String, userPassword: String): Boolean
-    fun encryptPassword(password: String): String
+public interface PasswordEncryptable {
+    public fun validatePassword(attempt: String, userPassword: String): Boolean
+    public fun encryptPassword(password: String): String
 }

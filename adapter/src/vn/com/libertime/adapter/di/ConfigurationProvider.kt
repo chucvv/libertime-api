@@ -1,6 +1,7 @@
 package vn.com.libertime.adapter.di
 
 import io.ktor.util.*
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.adapter.configuration.BusinessAppConfiguration
 import vn.com.libertime.adapter.configuration.CommonAppConfiguration
@@ -9,8 +10,8 @@ import vn.com.libertime.adapter.configuration.ServerSideConfiguration
 import vn.com.libertime.adapter.server_side.defaultEnvironment
 
 @KtorExperimentalAPI
-object ConfigurationProvider {
-    val configuration = module {
+public object ConfigurationProvider {
+    private val configuration = module {
         single { System.getenv()["ENVIRONMENT"] ?: defaultEnvironment }
         single { ServerSideConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
@@ -18,5 +19,5 @@ object ConfigurationProvider {
         single { BusinessAppConfiguration(get(), get()) }
     }
 
-    val dependencies = listOf(configuration)
+    public val dependencies: List<Module> = listOf(configuration)
 }

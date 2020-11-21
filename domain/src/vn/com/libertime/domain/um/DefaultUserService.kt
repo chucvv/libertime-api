@@ -5,7 +5,7 @@ import vn.com.libertime.port.um.entity.UserInfo
 import vn.com.libertime.port.um.provided.UserService
 import vn.com.libertime.port.um.required.UpdateUserParam
 
-class DefaultUserService(
+internal class DefaultUserService(
     private val getUserByIdUseCase: GetUserByIdUseCase,
     private val updateUserInfoUseCase: UpdateUserInfoUseCase
 ) : UserService {

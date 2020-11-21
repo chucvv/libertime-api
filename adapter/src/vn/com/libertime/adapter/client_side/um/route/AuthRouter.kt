@@ -4,14 +4,13 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.routing.*
-import org.koin.core.component.KoinApiExtension
-import vn.com.libertime.adapter.statuspages.FailureMessages
-import vn.com.libertime.adapter.extension.respond
 import vn.com.libertime.adapter.client_side.um.controller.AuthController
 import vn.com.libertime.adapter.client_side.um.request.LoginRequest
 import vn.com.libertime.adapter.client_side.um.request.RegisterRequest
+import vn.com.libertime.adapter.extension.respond
+import vn.com.libertime.adapter.statuspages.FailureMessages
 
-fun Route.auth(controller: AuthController) {
+internal fun Route.auth(controller: AuthController) {
 
     post("user") {
         val request = runCatching { call.receive<RegisterRequest>() }.getOrElse {

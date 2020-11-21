@@ -7,9 +7,9 @@ import vn.com.libertime.port.um.entity.CredentialEntity
 import vn.com.libertime.port.um.required.TokenProvidable
 import java.util.*
 
-const val claim = "id"
+internal const val claim = "id"
 
-class JwtConfigService private constructor(secret: String) : TokenProvidable {
+internal class JwtConfigService private constructor(secret: String) : TokenProvidable {
     private val algorithm = Algorithm.HMAC256(secret)
     val verifier: JWTVerifier = JWT.require(algorithm)
         .withIssuer(issuer)

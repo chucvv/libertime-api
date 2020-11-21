@@ -3,18 +3,19 @@ package vn.com.libertime.entity
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import org.joda.time.DateTime
 import vn.com.libertime.table.Users
 import java.util.*
 
-class EntityUser(id: EntityID<UUID>) : UUIDEntity(id) {
-    companion object : UUIDEntityClass<EntityUser>(Users)
+public class EntityUser(id: EntityID<UUID>) : UUIDEntity(id) {
+    public companion object : UUIDEntityClass<EntityUser>(Users)
 
-    var username by Users.username
-    var password by Users.password
-    var firstname by Users.firstname
-    var lastname by Users.lastname
-    var email by Users.email
-    var sex by Users.sex
-    var birthday by Users.birthday
-    val createdDate by Users.createdDate
+    public var username: String by Users.username
+    public var password: String by Users.password
+    public var firstname: String? by Users.firstname
+    public var lastname: String? by Users.lastname
+    public var email: String? by Users.email
+    public var sex: Boolean by Users.sex
+    public var birthday: Long by Users.birthday
+    public val createdDate: DateTime by Users.createdDate
 }

@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt
 import vn.com.libertime.port.um.required.PasswordEncryptable
 
 
-class BCryptPassword : PasswordEncryptable {
+internal class BCryptPassword : PasswordEncryptable {
     override fun validatePassword(attempt: String, userPassword: String): Boolean {
         return BCrypt.checkpw(attempt, userPassword)
     }

@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.server_side.database
+package vn.com.libertime
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import vn.com.libertime.table.UserProfiles
 import vn.com.libertime.table.Users
 
-class Database(private val environment: String) {
+public class Database(private val environment: String) {
 
     private val tables = arrayOf(Users, UserProfiles)
 

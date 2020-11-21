@@ -5,12 +5,12 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 
-data class SystemException(override val message: String? = FailureMessages.MESSAGE_FAILED) : Exception()
-data class BusinessException(override val message: String? = FailureMessages.MESSAGE_FAILED) : Exception()
-data class AuthorizationException(override val message: String = FailureMessages.MESSAGE_ACCESS_DENIED) :
+internal data class SystemException(override val message: String? = FailureMessages.MESSAGE_FAILED) : Exception()
+internal data class BusinessException(override val message: String? = FailureMessages.MESSAGE_FAILED) : Exception()
+internal data class AuthorizationException(override val message: String = FailureMessages.MESSAGE_ACCESS_DENIED) :
     Exception()
 
-fun StatusPages.Configuration.businessStatusPages() {
+internal fun StatusPages.Configuration.businessStatusPages() {
     exception<BusinessException> { cause ->
         call.respond(HttpStatusCode.BadRequest, cause.message ?: "")
     }

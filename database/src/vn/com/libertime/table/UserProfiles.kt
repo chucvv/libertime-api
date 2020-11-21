@@ -4,7 +4,7 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.jodatime.datetime
 import org.joda.time.DateTime
 
-object UserProfiles : UUIDTable() {
+internal object UserProfiles : UUIDTable() {
     val user = reference("user", Users)
     val firebaseId = varchar("firebaseId", length = 100).nullable()
     val address = varchar("address", length = 100).nullable()

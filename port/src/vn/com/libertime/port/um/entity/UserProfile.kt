@@ -1,6 +1,6 @@
 package vn.com.libertime.port.um.entity
 
-data class UserProfile(
+public data class UserProfile(
     val id: String,
     val firebaseId: String?,
     val address: String?,

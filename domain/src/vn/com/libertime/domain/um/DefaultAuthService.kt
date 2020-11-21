@@ -6,7 +6,7 @@ import vn.com.libertime.port.um.provided.AuthService
 import vn.com.libertime.port.um.provided.LoginParam
 import vn.com.libertime.port.um.required.RegisterParam
 
-class DefaultAuthService(
+internal class DefaultAuthService(
     private val loginUseCase: LoginUseCase,
     private val registerUseCase: RegisterUseCase
 ) : AuthService {

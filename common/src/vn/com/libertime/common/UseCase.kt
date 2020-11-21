@@ -1,5 +1,5 @@
 package vn.com.libertime.common
 
-interface UseCase<P : Any, R : Any> {
-    suspend fun invoke(params: P): Result<R>
+public interface UseCase<P : Any, R : Any> {
+    public suspend fun invoke(params: P): Result<R>
 }

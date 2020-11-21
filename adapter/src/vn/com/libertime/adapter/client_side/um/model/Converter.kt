@@ -5,7 +5,7 @@ import vn.com.libertime.entity.EntityUserProfile
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
 
-fun EntityUser.toUserEntity() = User(
+internal fun EntityUser.toUserEntity() = User(
     userId = id.value.toString(),
     username = username,
     password = password,
@@ -17,7 +17,7 @@ fun EntityUser.toUserEntity() = User(
     createdDate = createdDate.millis,
 )
 
-fun EntityUserProfile.toUserProfileEntity() = UserProfile(
+internal fun EntityUserProfile.toUserProfileEntity() = UserProfile(
     id = id.value.toString(),
     firebaseId = firebaseId,
     address = address,

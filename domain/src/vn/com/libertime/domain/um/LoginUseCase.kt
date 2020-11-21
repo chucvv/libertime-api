@@ -8,7 +8,7 @@ import vn.com.libertime.port.um.required.PasswordEncryptable
 import vn.com.libertime.port.um.required.TokenProvidable
 import vn.com.libertime.port.um.required.UserRepository
 
-class LoginUseCase(
+internal class LoginUseCase(
     private val userService: UserRepository,
     private val encryptedPassword: PasswordEncryptable,
     private val tokenProvider: TokenProvidable

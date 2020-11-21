@@ -8,12 +8,12 @@ import vn.com.libertime.port.um.provided.AuthService
 import vn.com.libertime.port.um.provided.LoginParam
 import vn.com.libertime.port.um.required.RegisterParam
 
-interface AuthController {
-    suspend fun login(username: String, password: String): AuthResponse
-    suspend fun register(username: String, password: String): AuthResponse
+public interface AuthController {
+    public suspend fun login(username: String, password: String): AuthResponse
+    public suspend fun register(username: String, password: String): AuthResponse
 }
 
-class DefaultAuthController(private val authService: AuthService) : AuthController {
+internal class DefaultAuthController(private val authService: AuthService) : AuthController {
 
     override suspend fun login(username: String, password: String): AuthResponse = when (val result =
         authService.login(LoginParam(username = username, password = password))) {

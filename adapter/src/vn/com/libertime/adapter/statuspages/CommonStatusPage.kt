@@ -7,7 +7,7 @@ import io.ktor.response.*
 import vn.com.libertime.common.State
 import vn.com.libertime.common.generateResponse
 
-fun StatusPages.Configuration.commonStatusPages() {
+internal fun StatusPages.Configuration.commonStatusPages() {
     status(HttpStatusCode.InternalServerError) {
         call.respond(it, generateResponse(State.FAILED, FailureMessages.MESSAGE_FAILED))
     }

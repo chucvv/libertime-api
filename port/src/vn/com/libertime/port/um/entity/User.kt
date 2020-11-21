@@ -1,6 +1,6 @@
 package vn.com.libertime.port.um.entity
 
-data class User(
+public data class User(
     val userId: String,
     val username: String,
     val password: String,
