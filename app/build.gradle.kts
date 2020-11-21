@@ -13,7 +13,7 @@ plugins {
 }
 
 application {
-    mainClassName = "vn.com.libertime.application.ApplicationKt"
+    mainClassName = "vn.com.libertime.ApplicationKt"
 }
 
 tasks.withType<ShadowJar> {
