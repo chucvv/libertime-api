@@ -7,12 +7,14 @@ import io.ktor.http.*
 import io.ktor.jackson.*
 import io.ktor.locations.*
 import io.ktor.request.*
+import io.ktor.websocket.*
 import org.slf4j.event.Level
 import vn.com.libertime.adapter.statuspages.businessStatusPages
 import vn.com.libertime.adapter.statuspages.commonStatusPages
 
 public class ServerSideConfiguration(private val environment: String) : AppConfigurable {
     override fun apply(application: Application) {
+        application.install(WebSockets)
         application.install(CORS) {
             method(HttpMethod.Get)
             method(HttpMethod.Post)

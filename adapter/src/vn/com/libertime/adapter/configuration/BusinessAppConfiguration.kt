@@ -4,6 +4,8 @@ import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.http.content.*
 import io.ktor.routing.*
+import vn.com.libertime.adapter.client_side.chatting.controller.ChattingController
+import vn.com.libertime.adapter.client_side.chatting.route.chatting
 import vn.com.libertime.adapter.client_side.um.controller.AuthController
 import vn.com.libertime.adapter.client_side.um.controller.UserController
 import vn.com.libertime.adapter.client_side.um.route.auth
@@ -11,7 +13,8 @@ import vn.com.libertime.adapter.client_side.um.route.user
 
 public class BusinessAppConfiguration(
     private val authController: AuthController,
-    private val userController: UserController
+    private val userController: UserController,
+    private val chattingController: ChattingController,
 ) : AppConfigurable {
     override fun apply(application: Application) {
         application.install(Routing) {
@@ -22,6 +25,7 @@ public class BusinessAppConfiguration(
             authenticate("jwt") {
                 user(userController)
             }
+            chatting(chattingController)
         }
     }
 

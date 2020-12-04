@@ -33,6 +33,8 @@ dependencies {
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
 
+    implementation( "io.ktor:ktor-websockets:$ktorVersion")
+
     implementation("com.zaxxer:HikariCP:$hikariCpVersion")
 
     implementation("org.mindrot:jbcrypt:$bcryptVersion")

@@ -28,7 +28,7 @@ public object ConfigurationProvider {
         single { ServerSideConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
         single { StorageAppConfiguration(get(), get()) }
-        single { BusinessAppConfiguration(get(), get()) }
+        single { BusinessAppConfiguration(get(), get(), get()) }
     }
 
     private val centerConfigModule = module {
