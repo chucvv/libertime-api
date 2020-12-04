@@ -1,3 +1,4 @@
+val ktorVersion: String by project
 val koinVersion: String by project
 
 plugins {
@@ -10,4 +11,6 @@ kotlin.sourceSets["test"].kotlin.srcDirs("test")
 dependencies {
     implementation("org.koin:koin-core:$koinVersion")
     implementation("org.koin:koin-ktor:$koinVersion")
+
+    implementation( "io.ktor:ktor-websockets:$ktorVersion")
 }

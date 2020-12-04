@@ -16,6 +16,7 @@ dependencies {
     implementation(project(":database"))
     implementation(project(":port"))
     implementation(project(":common"))
+    implementation(project(":chatting"))
 
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-jackson:$ktorVersion")

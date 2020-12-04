@@ -1,8 +1,8 @@
-package vn.com.libertime.adapter.client_side.chatting.controller
+package vn.com.libertime.chatting.controller
 
 import io.ktor.http.cio.websocket.*
 import io.ktor.websocket.*
-import vn.com.libertime.adapter.client_side.chatting.model.ClientSession
+import vn.com.libertime.chatting.model.ClientSession
 import java.util.*
 import kotlin.collections.LinkedHashSet
 

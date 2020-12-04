@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.client_side.chatting.controller
+package vn.com.libertime.chatting.controller
 
 import io.ktor.websocket.*
 

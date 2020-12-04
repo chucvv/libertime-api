@@ -1,4 +1,4 @@
-package vn.com.libertime.adapter.client_side.chatting.model
+package vn.com.libertime.chatting.model
 
 import io.ktor.websocket.*
 import java.util.concurrent.atomic.AtomicInteger

@@ -4,12 +4,12 @@ import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.http.content.*
 import io.ktor.routing.*
-import vn.com.libertime.adapter.client_side.chatting.controller.ChattingController
-import vn.com.libertime.adapter.client_side.chatting.route.chatting
 import vn.com.libertime.adapter.client_side.um.controller.AuthController
 import vn.com.libertime.adapter.client_side.um.controller.UserController
 import vn.com.libertime.adapter.client_side.um.route.auth
 import vn.com.libertime.adapter.client_side.um.route.user
+import vn.com.libertime.chatting.controller.ChattingController
+import vn.com.libertime.chatting.route.chatting
 
 public class BusinessAppConfiguration(
     private val authController: AuthController,
