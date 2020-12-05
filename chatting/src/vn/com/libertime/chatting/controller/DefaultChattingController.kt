@@ -1,32 +1,36 @@
 package vn.com.libertime.chatting.controller
 
 import io.ktor.http.cio.websocket.*
+import io.ktor.sessions.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.consumeEach
+import vn.com.libertime.chatting.model.ChatRoom
 import vn.com.libertime.chatting.model.ClientSession
-import java.util.*
-import kotlin.collections.LinkedHashSet
 
 public class DefaultChattingController : ChattingController {
-    private val clients = Collections.synchronizedSet(LinkedHashSet<ClientSession>())
-    override suspend fun onChat(session: DefaultWebSocketServerSession) {
-        val clientSession = ClientSession(session)
-        clients += clientSession
-        val incoming = session.incoming
+    private val chatRoom = ChatRoom()
+
+    @ExperimentalCoroutinesApi
+    override suspend fun onChat(socketSession: DefaultWebSocketServerSession) {
+        val session = socketSession.call.sessions.get<ClientSession>() ?: return
+        val incoming = socketSession.incoming
         try {
-            while (true) {
-                when (val frame = incoming.receive()) {
+            incoming.consumeEach { frame ->
+                when (frame) {
                     is Frame.Text -> {
                         val text = frame.readText()
-                        // Iterate over all the connections
-                        val textToSend = "${clientSession.name} said: $text"
-                        for (other in clients.toList()) {
-                            other.session.outgoing.send(Frame.Text(textToSend))
-                        }
+                        chatRoom.receiveMessage(text, session.id, socketSession)
+                    }
+                    is Frame.Close -> {
+                        chatRoom.leave(session.id)
+                    }
+                    else -> {
                     }
                 }
             }
         } finally {
-            clients -= clientSession
+            chatRoom.leave(session.id)
         }
     }
 }

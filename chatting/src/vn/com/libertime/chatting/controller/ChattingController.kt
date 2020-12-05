@@ -3,7 +3,7 @@ package vn.com.libertime.chatting.controller
 import io.ktor.websocket.*
 
 public interface ChattingController {
-    public suspend fun onChat(session: DefaultWebSocketServerSession)
+    public suspend fun onChat(socketSession: DefaultWebSocketServerSession)
 }
 
 public class ChattingControllerComposite : ChattingController {
@@ -13,6 +13,6 @@ public class ChattingControllerComposite : ChattingController {
         controllers.add(chattingController)
     }
 
-    override suspend fun onChat(session: DefaultWebSocketServerSession): Unit =
-        controllers.forEach { it.onChat(session) }
+    override suspend fun onChat(socketSession: DefaultWebSocketServerSession): Unit =
+        controllers.forEach { it.onChat(socketSession) }
 }

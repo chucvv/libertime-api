@@ -14,6 +14,7 @@ allprojects {
         jcenter()
         maven { url = uri("https://kotlin.bintray.com/ktor") }
         maven { url = uri("https://plugins.gradle.org/m2/") }
+        maven { url = uri("https://artifactory.cronapp.io/public-release/") }
     }
 
     tasks.withType<Test> {

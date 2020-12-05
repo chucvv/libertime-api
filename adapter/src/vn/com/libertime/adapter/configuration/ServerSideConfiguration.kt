@@ -7,14 +7,26 @@ import io.ktor.http.*
 import io.ktor.jackson.*
 import io.ktor.locations.*
 import io.ktor.request.*
+import io.ktor.sessions.*
+import io.ktor.util.*
 import io.ktor.websocket.*
 import org.slf4j.event.Level
 import vn.com.libertime.adapter.statuspages.businessStatusPages
 import vn.com.libertime.adapter.statuspages.commonStatusPages
+import vn.com.libertime.chatting.model.ClientSession
 
 public class ServerSideConfiguration(private val environment: String) : AppConfigurable {
+    @KtorExperimentalAPI
     override fun apply(application: Application) {
         application.install(WebSockets)
+        application.install(Sessions) {
+            cookie<ClientSession>("SESSION")
+        }
+        application.intercept(ApplicationCallPipeline.Features) {
+            if (call.sessions.get<ClientSession>() == null) {
+                call.sessions.set(ClientSession(generateNonce()))
+            }
+        }
         application.install(CORS) {
             method(HttpMethod.Get)
             method(HttpMethod.Post)
