@@ -4,7 +4,7 @@ val koinVersion: String by project
 val bcryptVersion: String by project
 val lettuceVersion: String by project
 val hikariCpVersion: String by project
-
+val kotlinLogging: String by project
 plugins {
     kotlin("jvm")
 }
@@ -39,4 +39,6 @@ dependencies {
     implementation("com.zaxxer:HikariCP:$hikariCpVersion")
 
     implementation("org.mindrot:jbcrypt:$bcryptVersion")
+
+    implementation("io.github.microutils:kotlin-logging:${kotlinLogging}")
 }
