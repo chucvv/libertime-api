@@ -14,6 +14,7 @@ kotlin.sourceSets["test"].kotlin.srcDirs("test")
 
 dependencies {
     implementation(project(":database"))
+    implementation(project(":infrastructure"))
     implementation(project(":port"))
     implementation(project(":common"))
     implementation(project(":chatting"))

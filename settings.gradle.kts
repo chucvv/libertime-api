@@ -1,2 +1,2 @@
 rootProject.name = "libertime_api"
-include("app", "common", "port", "adapter", "domain", "database", "chatting")
+include("app", "common", "infrastructure", "port", "adapter", "domain", "database", "chatting")

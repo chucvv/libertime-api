@@ -6,27 +6,28 @@ import io.ktor.config.*
 import io.ktor.util.*
 import vn.com.libertime.adapter.server_side.cache.Redis
 import vn.com.libertime.database.Database
+import vn.com.libertime.port.um.required.EnvironmentProvidable
 
 @Suppress("PropertyName")
 @KtorExperimentalAPI
-public class Config(environment: String, applicationConfig: ApplicationConfig) {
+public class Config(applicationConfig: ApplicationConfig) {
     public val HASH_SECRET_KEY: String = applicationConfig.property("key.secret").getString()
-    private val redisConfig = applicationConfig.config("redis.$environment")
-    public val CACHED_REDIS_HOST: String = redisConfig.property("host").getString()
-    public val CACHED_REDIS_PORT: Int = redisConfig.property("port").getString().toInt()
-    public val REDIS_SECRET_KEY: String = redisConfig.property("secret").getString()
 }
 
 @KtorExperimentalAPI
 public class StorageAppConfiguration(
-    private val hikariConfig: HikariConfig,
-    private val config: Config
+    private val environmentConfig: EnvironmentProvidable
 ) : AppConfigurable {
 
     override fun apply(application: Application) {
-        config.run {
-            Redis(CACHED_REDIS_HOST, CACHED_REDIS_PORT, REDIS_SECRET_KEY)
+        environmentConfig.cachingClusterConfig.run {
+            Redis(host, port, secretKey)
         }
-        Database(hikariConfig)
+        Database(HikariConfig("/${environmentConfig.deployEnvironment}_hikari.properties").apply {
+            maximumPoolSize = 3
+            connectionTimeout = 30000
+            leakDetectionThreshold = 2000
+            validate()
+        })
     }
 }

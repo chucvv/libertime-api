@@ -1,33 +1,22 @@
 package vn.com.libertime.adapter.di
 
 import com.typesafe.config.ConfigFactory
-import com.zaxxer.hikari.HikariConfig
 import io.ktor.config.*
 import io.ktor.util.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.adapter.configuration.*
-import vn.com.libertime.adapter.server_side.defaultEnvironment
+import vn.com.libertime.infrastructure.EnvironmentProvider
+import vn.com.libertime.port.um.required.EnvironmentProvidable
 
 @KtorExperimentalAPI
 public object ConfigurationProvider {
-
-    private val env = System.getenv()["ENVIRONMENT"] ?: defaultEnvironment
-
-    private val hikariConfig = HikariConfig("/${env}_hikari.properties").apply {
-        maximumPoolSize = 3
-        connectionTimeout = 30000
-        leakDetectionThreshold = 2000
-        validate()
-    }
-
     private val configurableModule = module {
-        single { env }
-        single { hikariConfig }
-        single { Config(get(), HoconApplicationConfig(ConfigFactory.load())) }
+        single { EnvironmentProvider() as EnvironmentProvidable }
+        single { Config(HoconApplicationConfig(ConfigFactory.load())) }
         single { ServerSideConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
-        single { StorageAppConfiguration(get(), get()) }
+        single { StorageAppConfiguration(get()) }
         single { BusinessAppConfiguration(get(), get(), get()) }
     }
 
