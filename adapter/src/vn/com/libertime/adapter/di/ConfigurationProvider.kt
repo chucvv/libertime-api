@@ -1,7 +1,5 @@
 package vn.com.libertime.adapter.di
 
-import com.typesafe.config.ConfigFactory
-import io.ktor.config.*
 import io.ktor.util.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -13,7 +11,6 @@ import vn.com.libertime.port.um.required.EnvironmentProvidable
 public object ConfigurationProvider {
     private val configurableModule = module {
         single { EnvironmentProvider() as EnvironmentProvidable }
-        single { Config(HoconApplicationConfig(ConfigFactory.load())) }
         single { ServerSideConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
         single { StorageAppConfiguration(get()) }

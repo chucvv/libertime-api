@@ -4,16 +4,16 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.util.*
-import vn.com.libertime.adapter.configuration.Config
 import vn.com.libertime.port.um.entity.CredentialEntity
+import vn.com.libertime.port.um.required.EnvironmentProvidable
 import vn.com.libertime.port.um.required.TokenProvidable
 import java.util.*
 
 internal const val claim = "id"
 
 @KtorExperimentalAPI
-public class JwtConfigService(config: Config) : TokenProvidable {
-    private val algorithm = Algorithm.HMAC256(config.HASH_SECRET_KEY)
+public class JwtConfigService(environmentProvidable: EnvironmentProvidable) : TokenProvidable {
+    private val algorithm = Algorithm.HMAC256(environmentProvidable.appConfig.hashKey)
 
     public val verifier: JWTVerifier = JWT.require(algorithm)
         .withIssuer(issuer)

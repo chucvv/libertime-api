@@ -38,5 +38,12 @@ services:
       - PORT=8080
       - HASH_SECRET_KEY=${HASH_SECRET_KEY}
       - REDIS_SECRET_KEY=${REDIS_SECRET_KEY}
+      - DB_SERVERNAME=postgres
+      - DB_NAME=liber
+      - DB_USERNAME=chucvv
+      - DB_PASSWORD=postgres
+      - DB_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
       - "80:8080"
