@@ -4,7 +4,7 @@ import io.ktor.util.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.adapter.configuration.*
-import vn.com.libertime.infrastructure.EnvironmentProvider
+import vn.com.libertime.serverconfig.EnvironmentProvider
 import vn.com.libertime.port.um.required.EnvironmentProvidable
 
 @KtorExperimentalAPI

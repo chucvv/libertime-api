@@ -1,4 +1,4 @@
-package vn.com.libertime.infrastructure
+package vn.com.libertime.serverconfig
 
 import com.typesafe.config.Config
 import java.util.*

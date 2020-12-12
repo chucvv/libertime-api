@@ -1,8 +1,7 @@
-package vn.com.libertime.infrastructure
+package vn.com.libertime.serverconfig
 
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
-import vn.com.libertime.common.env.defaultEnvironment
 import vn.com.libertime.port.um.required.AppConfig
 import vn.com.libertime.port.um.required.CachingClusterConfig
 import vn.com.libertime.port.um.required.EnvironmentProvidable
