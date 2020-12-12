@@ -6,10 +6,10 @@
 *.ipr
 *.iws
 /app/build/
-/database/build/
 /adapter/build/
 /common/build/
 /domain/build/
 /port/build/
 /chatting/build/
-/infrastructure/build/
+/infrastructure/server-config/build/
+/infrastructure/database/build/
