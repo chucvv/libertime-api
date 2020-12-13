@@ -6,7 +6,7 @@ import vn.com.libertime.common.extension.exhaustive
 import vn.com.libertime.common.takeException
 import vn.com.libertime.port.um.provided.AuthService
 import vn.com.libertime.port.um.provided.LoginParam
-import vn.com.libertime.port.um.required.RegisterParam
+import vn.com.libertime.port.um.provided.RegisterParam
 
 public interface AuthController {
     public suspend fun login(username: String, password: String): AuthResponse

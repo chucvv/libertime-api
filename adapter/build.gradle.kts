@@ -5,6 +5,8 @@ val bcryptVersion: String by project
 val lettuceVersion: String by project
 val hikariCpVersion: String by project
 val kotlinLogging: String by project
+val avro4kVersion: String by project
+
 plugins {
     kotlin("jvm")
 }
@@ -13,10 +15,11 @@ kotlin.sourceSets["main"].kotlin.srcDirs("src")
 kotlin.sourceSets["test"].kotlin.srcDirs("test")
 
 dependencies {
-    implementation(project(":database"))
-    implementation(project(":server-config"))
     implementation(project(":port"))
     implementation(project(":common"))
+    implementation(project(":database"))
+    implementation(project(":server-config"))
+    implementation(project(":kafka"))
     implementation(project(":chatting"))
 
     implementation("io.ktor:ktor-locations:$ktorVersion")
@@ -34,12 +37,9 @@ dependencies {
 
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
-
     implementation( "io.ktor:ktor-websockets:$ktorVersion")
-
     implementation("com.zaxxer:HikariCP:$hikariCpVersion")
-
     implementation("org.mindrot:jbcrypt:$bcryptVersion")
-
     implementation("io.github.microutils:kotlin-logging:${kotlinLogging}")
+    implementation("com.sksamuel.avro4k:avro4k-core:$avro4kVersion")
 }

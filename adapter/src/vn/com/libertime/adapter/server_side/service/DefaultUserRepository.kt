@@ -7,7 +7,7 @@ import vn.com.libertime.database.dao.UpdateUserDaoParam
 import vn.com.libertime.database.dao.UserDao
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
-import vn.com.libertime.port.um.required.RegisterParam
+import vn.com.libertime.port.um.provided.RegisterParam
 import vn.com.libertime.port.um.required.UpdateUserParam
 import vn.com.libertime.port.um.required.UserRepository
 

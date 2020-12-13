@@ -4,7 +4,7 @@ import vn.com.libertime.common.Result
 import vn.com.libertime.port.um.entity.CredentialEntity
 import vn.com.libertime.port.um.provided.AuthService
 import vn.com.libertime.port.um.provided.LoginParam
-import vn.com.libertime.port.um.required.RegisterParam
+import vn.com.libertime.port.um.provided.RegisterParam
 
 internal class DefaultAuthService(
     private val loginUseCase: LoginUseCase,

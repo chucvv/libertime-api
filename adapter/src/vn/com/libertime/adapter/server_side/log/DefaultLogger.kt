@@ -1,6 +1,7 @@
-package vn.com.libertime.common.log
+package vn.com.libertime.adapter.server_side.log
 
 import mu.KotlinLogging
+import vn.com.libertime.common.log.Logger
 
 public class DefaultLogger(private val logger: KotlinLogging) : Logger {
     override fun info(message: String): Unit = logger.logger(this.toString()).info(message)

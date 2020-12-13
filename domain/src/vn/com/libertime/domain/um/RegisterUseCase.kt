@@ -3,8 +3,8 @@ package vn.com.libertime.domain.um
 import vn.com.libertime.common.Result
 import vn.com.libertime.common.UseCase
 import vn.com.libertime.port.um.entity.CredentialEntity
+import vn.com.libertime.port.um.provided.RegisterParam
 import vn.com.libertime.port.um.required.PasswordEncryptable
-import vn.com.libertime.port.um.required.RegisterParam
 import vn.com.libertime.port.um.required.TokenProvidable
 import vn.com.libertime.port.um.required.UserRepository
 

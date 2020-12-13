@@ -4,8 +4,8 @@ import mu.KotlinLogging
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import vn.com.libertime.adapter.server_side.log.DefaultLogger
 import vn.com.libertime.adapter.server_side.service.DefaultUserRepository
-import vn.com.libertime.common.log.DefaultLogger
 import vn.com.libertime.common.log.Logger
 import vn.com.libertime.port.um.required.UserRepository
 

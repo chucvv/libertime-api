@@ -5,6 +5,7 @@ import com.typesafe.config.ConfigFactory
 import vn.com.libertime.port.um.required.AppConfig
 import vn.com.libertime.port.um.required.CachingClusterConfig
 import vn.com.libertime.port.um.required.EnvironmentProvidable
+import vn.com.libertime.port.um.required.KafkaConfig
 import java.util.*
 
 public class EnvironmentProvider : EnvironmentProvidable {
@@ -32,4 +33,16 @@ public class EnvironmentProvider : EnvironmentProvidable {
 
     override val databaseConfig: Properties
         get() = config.getConfig("database.hikari").toProperties()
+
+    override val consumerKafkaConfig: KafkaConfig
+        get() = KafkaConfig(
+            bootstrapServers = config.getConfig("kafka-consumer").getString("bootstrapServers"),
+            schemaUrl = config.getConfig("kafka-consumer").getString("schemaUrl")
+        )
+
+    override val producerKafkaConfig: KafkaConfig
+        get() = KafkaConfig(
+            bootstrapServers = config.getConfig("kafka-producer").getString("bootstrapServers"),
+            schemaUrl = config.getConfig("kafka-consumer").getString("schemaUrl")
+        )
 }

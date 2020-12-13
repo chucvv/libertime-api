@@ -2,6 +2,7 @@ package vn.com.libertime.port.um.required
 
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
+import vn.com.libertime.port.um.provided.RegisterParam
 
 public data class UpdateUserParam(
     val userId: String,
@@ -16,8 +17,6 @@ public data class UpdateUserParam(
     val lat: Double?,
     val lng: Double?,
 )
-
-public data class RegisterParam(val userName: String, val password: String)
 
 public interface UserRepository {
     public suspend fun createUser(registerParam: RegisterParam): String

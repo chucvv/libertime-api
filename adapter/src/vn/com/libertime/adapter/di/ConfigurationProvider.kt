@@ -4,8 +4,8 @@ import io.ktor.util.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.adapter.configuration.*
-import vn.com.libertime.serverconfig.EnvironmentProvider
 import vn.com.libertime.port.um.required.EnvironmentProvidable
+import vn.com.libertime.serverconfig.EnvironmentProvider
 
 @KtorExperimentalAPI
 public object ConfigurationProvider {
@@ -13,7 +13,7 @@ public object ConfigurationProvider {
         single { EnvironmentProvider() as EnvironmentProvidable }
         single { ServerSideConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
-        single { StorageAppConfiguration(get()) }
+        single { StorageAppConfiguration(get(), get()) }
         single { BusinessAppConfiguration(get(), get(), get()) }
     }
 
