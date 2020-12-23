@@ -1,9 +1,10 @@
 package vn.com.libertime.adapter.client_side.um.kafka
 
+import com.sksamuel.avro4k.Avro
 import vn.com.libertime.common.log.Logger
 import vn.com.libertime.kafka.consumer.clientConsumer
 
-internal suspend fun consumerRegisterUser(
+internal suspend fun consumeRegisterUser(
     bootstrapServers: String,
     schemaUrl: String,
     log: Logger
@@ -16,6 +17,8 @@ internal suspend fun consumerRegisterUser(
 
         onReceiveRecord = { record ->
             log.info("new record: $record")
+            val user = Avro.default.fromRecord(UserConsumeMessageDto.serializer(), record)
+            log.info("new register user: $user")
         },
 
         onError = { record, exception ->

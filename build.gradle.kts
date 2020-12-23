@@ -5,6 +5,12 @@ plugins {
     kotlin("jvm") version "1.4.10" apply false
 }
 
+buildscript{
+    dependencies{
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.4.10")
+    }
+}
+
 allprojects {
     group = "vn.com.libertime"
     version = "0.0.1"

@@ -11,7 +11,7 @@ import vn.com.libertime.port.um.provided.UserService
 public object UserDomainProvider {
     private val usecases = module {
         factory { LoginUseCase(get(), get(), get()) }
-        factory { RegisterUseCase(get(), get(), get()) }
+        factory { RegisterUseCase(get(), get(), get(), get()) }
         factory { GetUserByIdUseCase(get()) }
         factory { UpdateUserInfoUseCase(get()) }
     }

@@ -9,7 +9,7 @@ import vn.com.libertime.port.um.required.PasswordEncryptable
 import vn.com.libertime.port.um.required.TokenProvidable
 
 @KtorExperimentalAPI
-public object AuthTokenProvider {
+public object AuthTokenModule {
     private val jwtModule = module {
         single<PasswordEncryptable> { BCryptPassword() }
         single<TokenProvidable> { JwtConfigService(get()) }

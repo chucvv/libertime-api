@@ -8,7 +8,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
-import vn.com.libertime.adapter.client_side.um.kafka.consumerRegisterUser
+import vn.com.libertime.adapter.client_side.um.kafka.consumeRegisterUser
 import vn.com.libertime.adapter.server_side.cache.Redis
 import vn.com.libertime.common.log.Logger
 import vn.com.libertime.database.Database
@@ -29,7 +29,7 @@ public class StorageAppConfiguration(
         }
         environmentConfig.consumerKafkaConfig.run {
             GlobalScope.launch(newSingleThreadContext("consumerContext")) {
-                consumerRegisterUser(bootstrapServers = bootstrapServers, schemaUrl = schemaUrl, log = logger)
+                consumeRegisterUser(bootstrapServers = bootstrapServers, schemaUrl = schemaUrl, log = logger)
             }
         }
     }

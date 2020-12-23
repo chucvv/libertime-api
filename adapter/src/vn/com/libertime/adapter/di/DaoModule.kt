@@ -1,16 +1,13 @@
-package vn.com.libertime.database
+package vn.com.libertime.adapter.di
 
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.database.dao.DefaultUserDao
-import vn.com.libertime.database.dao.UserDao
+import vn.com.libertime.port.um.required.UserDao
 
-@KoinApiExtension
-public object DaoProvider {
+public object DaoModule {
     private val userDao = module {
         single { DefaultUserDao() as UserDao }
     }
-
     public val dependencies: List<Module> = listOf(userDao)
 }

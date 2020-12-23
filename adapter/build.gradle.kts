@@ -6,9 +6,10 @@ val lettuceVersion: String by project
 val hikariCpVersion: String by project
 val kotlinLogging: String by project
 val avro4kVersion: String by project
-
+val kafkaClients: String by project
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")
@@ -41,5 +42,7 @@ dependencies {
     implementation("com.zaxxer:HikariCP:$hikariCpVersion")
     implementation("org.mindrot:jbcrypt:$bcryptVersion")
     implementation("io.github.microutils:kotlin-logging:${kotlinLogging}")
+
     implementation("com.sksamuel.avro4k:avro4k-core:$avro4kVersion")
+    implementation("org.apache.kafka:kafka-clients:$kafkaClients")
 }

@@ -6,11 +6,11 @@ import vn.com.libertime.common.Result
 import vn.com.libertime.common.extension.exhaustive
 import vn.com.libertime.common.takeException
 import vn.com.libertime.port.um.provided.UserService
-import vn.com.libertime.port.um.required.UpdateUserParam
+import vn.com.libertime.port.um.required.UserUpdateParam
 
 public interface UserController {
     public suspend fun getProfile(userId: String): UserProfileResponse
-    public suspend fun updateProfile(updateUserParam: UpdateUserParam): UserProfileResponse
+    public suspend fun updateProfile(updateUserParam: UserUpdateParam): UserProfileResponse
 }
 
 internal class DefaultUserController(private val userService: UserService) : UserController {
@@ -22,7 +22,7 @@ internal class DefaultUserController(private val userService: UserService) : Use
             is Result.Error.BusinessException -> UserProfileResponse.notFound(result.takeException())
         }.exhaustive
 
-    override suspend fun updateProfile(updateUserParam: UpdateUserParam): UserProfileResponse =
+    override suspend fun updateProfile(updateUserParam: UserUpdateParam): UserProfileResponse =
         when (val result = userService.updateUser(updateUserParam)) {
             is Result.Success -> UserProfileResponse.success(null)
             is Result.Error.InternalSystemException -> UserProfileResponse.failed(result.takeException())

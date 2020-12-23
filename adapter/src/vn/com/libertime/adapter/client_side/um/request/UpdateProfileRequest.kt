@@ -1,6 +1,6 @@
 package vn.com.libertime.adapter.client_side.um.request
 
-import vn.com.libertime.port.um.required.UpdateUserParam
+import vn.com.libertime.port.um.required.UserUpdateParam
 
 internal data class UpdateProfileRequest(
     val email: String,
@@ -14,7 +14,7 @@ internal data class UpdateProfileRequest(
     val lat: Double,
     val lng: Double,
 ) {
-    fun toUpdateUserParam(userid: String): UpdateUserParam = UpdateUserParam(
+    fun toUpdateUserParam(userid: String): UserUpdateParam = UserUpdateParam(
         userId = userid,
         email = email,
         firstname = firstname,

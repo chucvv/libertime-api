@@ -6,10 +6,10 @@ import vn.com.libertime.port.um.entity.CredentialEntity
 import vn.com.libertime.port.um.provided.LoginParam
 import vn.com.libertime.port.um.required.PasswordEncryptable
 import vn.com.libertime.port.um.required.TokenProvidable
-import vn.com.libertime.port.um.required.UserRepository
+import vn.com.libertime.port.um.required.UserDao
 
 internal class LoginUseCase(
-    private val userService: UserRepository,
+    private val userDao: UserDao,
     private val encryptedPassword: PasswordEncryptable,
     private val tokenProvider: TokenProvidable
 ) :
@@ -17,7 +17,7 @@ internal class LoginUseCase(
 
     override suspend operator fun invoke(params: LoginParam): Result<CredentialEntity> {
         val userEntity =
-            userService.getUserByName(params.username)
+            userDao.getUserByName(params.username)
                 ?: return Result.Error.BusinessException("User is not found")
         if (!encryptedPassword.validatePassword(params.password, userEntity.password)) {
             return Result.Error.BusinessException("Credentials is invalid")

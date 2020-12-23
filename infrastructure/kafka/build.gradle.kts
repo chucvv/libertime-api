@@ -7,7 +7,7 @@ val avro4kVersion: String by project
 
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.4.10"
+    kotlin("plugin.serialization")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")
