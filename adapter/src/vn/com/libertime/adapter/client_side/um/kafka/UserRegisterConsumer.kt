@@ -10,7 +10,7 @@ internal suspend fun consumeRegisterUser(
     log: Logger
 ) {
     clientConsumer(
-        topic = "user-command-request",
+        topic = "user-event-created",
         group = "ktor-user-group",
         bootstrapServers = bootstrapServers,
         schemaUrl = schemaUrl,
