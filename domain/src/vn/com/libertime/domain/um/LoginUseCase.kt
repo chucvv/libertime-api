@@ -6,10 +6,10 @@ import vn.com.libertime.port.um.entity.CredentialEntity
 import vn.com.libertime.port.um.provided.LoginParam
 import vn.com.libertime.port.um.required.PasswordEncryptable
 import vn.com.libertime.port.um.required.TokenProvidable
-import vn.com.libertime.port.um.required.UserDao
+import vn.com.libertime.port.um.required.UserRepository
 
 internal class LoginUseCase(
-    private val userDao: UserDao,
+    private val userDao: UserRepository,
     private val encryptedPassword: PasswordEncryptable,
     private val tokenProvider: TokenProvidable
 ) :

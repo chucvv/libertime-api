@@ -1,19 +1,18 @@
-package vn.com.libertime.database.dao
+package vn.com.libertime.database
 
 import org.jetbrains.exposed.sql.transactions.transaction
-import vn.com.libertime.database.DatabaseException
 import vn.com.libertime.database.entity.EntityUser
 import vn.com.libertime.database.entity.EntityUserProfile
 import vn.com.libertime.database.table.UserProfiles
 import vn.com.libertime.database.table.Users
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
-import vn.com.libertime.port.um.required.UserDao
 import vn.com.libertime.port.um.required.UserRegisterParam
+import vn.com.libertime.port.um.required.UserRepository
 import vn.com.libertime.port.um.required.UserUpdateParam
 import java.util.*
 
-public class DefaultUserDao : UserDao {
+public class DefaultUserRepository : UserRepository {
 
     override suspend fun createUser(params: UserRegisterParam): User =
         runCatching {

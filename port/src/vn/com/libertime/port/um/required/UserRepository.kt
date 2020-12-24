@@ -19,7 +19,7 @@ public data class UserUpdateParam(
 
 public data class UserRegisterParam(val username: String, val password: String)
 
-public interface UserDao {
+public interface UserRepository {
     public suspend fun createUser(params: UserRegisterParam): User
     public suspend fun updateUser(params: UserUpdateParam): String
     public suspend fun getUserByName(username: String): User?

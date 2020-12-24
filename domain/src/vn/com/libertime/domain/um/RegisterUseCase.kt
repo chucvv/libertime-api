@@ -8,7 +8,7 @@ import vn.com.libertime.port.um.provided.RegisterParam
 import vn.com.libertime.port.um.required.*
 
 internal class RegisterUseCase(
-    private val userDao: UserDao,
+    private val userDao: UserRepository,
     private val encryptedPassword: PasswordEncryptable,
     private val tokenProvider: TokenProvidable,
     private val userNotificationPort: UserNotificationPort
