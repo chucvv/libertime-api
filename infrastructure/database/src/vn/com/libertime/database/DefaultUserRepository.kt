@@ -1,6 +1,7 @@
 package vn.com.libertime.database
 
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.postgis.Point
 import vn.com.libertime.database.entity.EntityUser
 import vn.com.libertime.database.entity.EntityUserProfile
 import vn.com.libertime.database.table.UserProfiles
@@ -36,8 +37,7 @@ public class DefaultUserRepository : UserRepository {
                     firebaseId = params.firebaseId
                     address = params.address
                     university = params.university
-                    lat = params.lat
-                    lng = params.lng
+                    location = Point(params.lat ?: 0.0, params.lng ?: 0.0)
                 }
                 EntityUser[UUID.fromString(params.userId)].apply {
                     email = params.email

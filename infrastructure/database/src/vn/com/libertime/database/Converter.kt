@@ -22,7 +22,7 @@ internal fun EntityUserProfile.toUserProfileEntity() = UserProfile(
     firebaseId = firebaseId,
     address = address,
     university = university,
-    lat = lat,
-    lng = lng,
+    lat = location?.x,
+    lng = location?.y,
     lastLoginDate = lastLoginDate.millis,
 )

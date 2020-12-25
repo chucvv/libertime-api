@@ -1,6 +1,6 @@
 val exposedVersion: String by project
 val postgresqlVersion: String by project
-
+val postgisJdbcVersion: String by project
 plugins {
     kotlin("jvm")
 }
@@ -16,4 +16,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
 
     implementation("org.postgresql:postgresql:$postgresqlVersion")
+    implementation("net.postgis:postgis-jdbc:$postgisJdbcVersion") {
+        exclude(module = "postgresql")
+    }
 }
