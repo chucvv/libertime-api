@@ -11,7 +11,7 @@ internal class RegisterUseCase(
     private val userDao: UserRepository,
     private val encryptedPassword: PasswordEncryptable,
     private val tokenProvider: TokenProvidable,
-    private val userNotificationPort: UserNotificationPort
+    private val userNotificationPort: UserNoticeable
 ) : UseCase<RegisterParam, CredentialEntity> {
 
     override suspend operator fun invoke(params: RegisterParam): Result<CredentialEntity> = runCatching {

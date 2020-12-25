@@ -13,4 +13,5 @@
 /chatting/build/
 /infrastructure/server-config/build/
 /infrastructure/database/build/
+/infrastructure/cache/build/
 /infrastructure/kafka/build/
