@@ -1,7 +1,7 @@
 package vn.com.libertime.adapter.client_side.um.kafka
 
 import com.sksamuel.avro4k.Avro
-import vn.com.libertime.common.log.Logger
+import vn.com.libertime.port.um.required.Logger
 import vn.com.libertime.kafka.consumer.clientConsumer
 
 internal suspend fun consumeRegisterUser(

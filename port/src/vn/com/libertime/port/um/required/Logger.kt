@@ -1,4 +1,4 @@
-package vn.com.libertime.common.log
+package vn.com.libertime.port.um.required
 
 public interface Logger {
     public fun info(message: String)

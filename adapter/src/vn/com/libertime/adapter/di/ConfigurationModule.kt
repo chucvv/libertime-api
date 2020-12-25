@@ -6,7 +6,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import vn.com.libertime.adapter.configuration.*
 import vn.com.libertime.adapter.server_side.log.DefaultLogger
-import vn.com.libertime.common.log.Logger
+import vn.com.libertime.port.um.required.Logger
 import vn.com.libertime.port.um.required.EnvironmentProvidable
 import vn.com.libertime.serverconfig.EnvironmentProvider
 
@@ -18,7 +18,7 @@ public object ConfigurationModule {
         single { GlobalConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
         single { StorageConfiguration(get(), get()) }
-        single { BusinessAppConfiguration(get(), get(), get()) }
+        single { BusinessAppConfiguration(get(), get(), get(), get()) }
     }
 
     private val centerConfigModule = module {
