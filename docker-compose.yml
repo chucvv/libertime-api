@@ -3,29 +3,16 @@ version: '3.8'
 # Services we are going to use when running
 services:
   # Database instance we need to store data
-  #postgres:
-  #image: postgres:latest
-  #restart: always
-  #container_name: db-postgres
-  #ports:
-  #  - "5432:5432"
-  #environment:
-  #POSTGRES_DB: liber
-  #POSTGRES_USER: chucvv
-  #POSTGRES_PASSWORD: postgres
   postgres:
-    image: kartoza/postgis:12.0
+    image: postgres:latest
+    restart: always
+    container_name: db-postgres
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: liber
       POSTGRES_USER: chucvv
       POSTGRES_PASSWORD: postgres
-      # Add extensions you need to be enabled by default in the DB. Default are the five specified below
-      POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
-    ports:
-      - "5432:5432"
-    restart: always
-    healthcheck:
-      test: "exit 0"
 
   # Redis cache
   redis:
