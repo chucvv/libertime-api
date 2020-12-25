@@ -2,7 +2,6 @@ val ktorVersion: String by project
 val exposedVersion: String by project
 val koinVersion: String by project
 val bcryptVersion: String by project
-val lettuceVersion: String by project
 val hikariCpVersion: String by project
 val kotlinLogging: String by project
 val avro4kVersion: String by project
@@ -19,6 +18,7 @@ dependencies {
     implementation(project(":port"))
     implementation(project(":common"))
     implementation(project(":database"))
+    implementation(project(":cache"))
     implementation(project(":server-config"))
     implementation(project(":kafka"))
     implementation(project(":chatting"))
@@ -27,8 +27,6 @@ dependencies {
     implementation("io.ktor:ktor-jackson:$ktorVersion")
 
     implementation("io.ktor:ktor-auth:$ktorVersion")
-
-    implementation("io.lettuce:lettuce-core:$lettuceVersion")
 
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")

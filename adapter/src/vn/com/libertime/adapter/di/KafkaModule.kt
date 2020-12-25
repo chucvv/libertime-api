@@ -6,11 +6,11 @@ import vn.com.libertime.adapter.client_side.um.kafka.KafkaProducerAdapter
 import vn.com.libertime.adapter.client_side.um.kafka.UserNotificationAdapter
 import vn.com.libertime.kafka.producer.producer
 import vn.com.libertime.port.um.required.EnvironmentProvidable
-import vn.com.libertime.port.um.required.UserNotificationPort
+import vn.com.libertime.port.um.required.UserNoticeable
 
 public object KafkaModule {
     private val userKafkaModule = module {
-        single { UserNotificationAdapter(get(), get()) as UserNotificationPort }
+        single { UserNotificationAdapter(get(), get()) as UserNoticeable }
         single {
             val producerConfig by inject<EnvironmentProvidable>()
             producerConfig.producerKafkaConfig.run {

@@ -4,12 +4,12 @@ import com.sksamuel.avro4k.Avro
 import org.apache.kafka.clients.producer.ProducerRecord
 import vn.com.libertime.common.log.Logger
 import vn.com.libertime.port.um.entity.UserEvent
-import vn.com.libertime.port.um.required.UserNotificationPort
+import vn.com.libertime.port.um.required.UserNoticeable
 
 public class UserNotificationAdapter(
     private val producer: KafkaProducerAdapter,
     private val logger: Logger
-) : UserNotificationPort {
+) : UserNoticeable {
 
     private val topicNameToNotify: String = "user-event-created"
 

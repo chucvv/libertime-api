@@ -14,6 +14,6 @@ internal val injectedModules: List<Module> = concatenate(
     AuthTokenModule.dependencies,
     UserDomainProvider.dependencies,
     ControllerModule.dependencies,
-    DaoModule.dependencies,
+    RepositoryModule.dependencies,
     KafkaModule.dependencies
 )

@@ -16,7 +16,7 @@ import vn.com.libertime.adapter.statuspages.commonStatusPages
 import vn.com.libertime.chatting.model.ClientSession
 import vn.com.libertime.port.um.required.EnvironmentProvidable
 
-public class ServerSideConfiguration(private val environmentProvidable: EnvironmentProvidable) : AppConfigurable {
+public class GlobalConfiguration(private val environmentProvidable: EnvironmentProvidable) : AppConfigurable {
     @KtorExperimentalAPI
     override fun apply(application: Application) {
         application.install(WebSockets)

@@ -15,16 +15,16 @@ public object ConfigurationModule {
     private val configurableModule = module {
         single { DefaultLogger(KotlinLogging) as Logger }
         single { EnvironmentProvider() as EnvironmentProvidable }
-        single { ServerSideConfiguration(get()) }
+        single { GlobalConfiguration(get()) }
         single { JwtAppConfiguration(get(), get()) }
-        single { StorageAppConfiguration(get(), get()) }
+        single { StorageConfiguration(get(), get()) }
         single { BusinessAppConfiguration(get(), get(), get()) }
     }
 
     private val centerConfigModule = module {
         single {
-            val serverSideConfiguration by inject<ServerSideConfiguration>()
-            val storageAppConfiguration by inject<StorageAppConfiguration>()
+            val serverSideConfiguration by inject<GlobalConfiguration>()
+            val storageAppConfiguration by inject<StorageConfiguration>()
             val jwtAppConfiguration by inject<JwtAppConfiguration>()
             val businessAppConfiguration by inject<BusinessAppConfiguration>()
 
