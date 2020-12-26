@@ -14,7 +14,7 @@ internal fun Route.search(controller: UserLocationController) {
     route("search") {
         get("radius") {
             val user: Credential = call.user ?: throw AuthorizationException()
-            val radius = call.request.queryParameters["radius"]?.toDouble()
+            val radius = call.request.queryParameters["radius"].takeIf { !it.isNullOrBlank() }?.toDouble()
                 ?: throw BadRequestException(FailureMessages.MESSAGE_MISSING_ARGUMENTS)
             val searchResult = controller.searchInRadius(userId = user.userId, radius = radius)
             respond(searchResult)

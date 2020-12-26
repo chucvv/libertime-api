@@ -1,7 +1,9 @@
 package vn.com.libertime.database
 
+import org.postgis.PGgeometry
 import vn.com.libertime.database.entity.EntityUser
 import vn.com.libertime.database.entity.EntityUserProfile
+import vn.com.libertime.port.um.entity.SearchUserProfile
 import vn.com.libertime.port.um.entity.User
 import vn.com.libertime.port.um.entity.UserProfile
 import java.sql.ResultSet
@@ -28,13 +30,15 @@ internal fun EntityUserProfile.toUserProfileEntity() = UserProfile(
     lastLoginDate = lastLoginDate.millis,
 )
 
-internal fun toUserProfile(rs: ResultSet) =
-    UserProfile(
+internal fun toUserProfile(rs: ResultSet): SearchUserProfile {
+    val geom: PGgeometry = rs.getObject("location") as PGgeometry
+    return SearchUserProfile(
         id = rs.getString("id"),
-        firebaseId = rs.getString("firebaseId"),
         address = rs.getString("address"),
         university = rs.getString("university"),
-        lat = 0.0,
-        lng = 0.0,
+        lat = geom.geometry.firstPoint.x,
+        lng = geom.geometry.firstPoint.y,
+        distance = rs.getDouble("distance"),
         lastLoginDate = rs.getDate("lastLoginDate").time
     )
+}

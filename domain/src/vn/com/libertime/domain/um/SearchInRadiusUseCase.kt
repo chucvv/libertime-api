@@ -2,7 +2,7 @@ package vn.com.libertime.domain.um
 
 import vn.com.libertime.common.Result
 import vn.com.libertime.common.UseCase
-import vn.com.libertime.port.um.entity.UserProfile
+import vn.com.libertime.port.um.entity.SearchUserProfile
 import vn.com.libertime.port.um.required.UserLocationRepository
 import vn.com.libertime.port.um.required.UserRepository
 
@@ -12,8 +12,8 @@ internal class SearchInRadiusUseCase(
     private val userRepository: UserRepository,
     private val userLocationRepository: UserLocationRepository
 ) :
-    UseCase<SearchInRadiusParam, List<UserProfile>> {
-    override suspend operator fun invoke(params: SearchInRadiusParam): Result<List<UserProfile>> {
+    UseCase<SearchInRadiusParam, List<SearchUserProfile>> {
+    override suspend operator fun invoke(params: SearchInRadiusParam): Result<List<SearchUserProfile>> {
         val userProfile = userRepository.getUserProfileById(params.userId)
             ?: return Result.Error.BusinessException("User is not found")
         return userProfile.takeIf { it.lat != null && it.lng != null }?.let {
