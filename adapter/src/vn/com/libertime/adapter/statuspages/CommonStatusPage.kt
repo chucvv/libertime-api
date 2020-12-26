@@ -21,6 +21,6 @@ internal fun StatusPages.Configuration.commonStatusPages() {
         )
     }
     exception<UnknownError> {
-        call.respond(HttpStatusCode.InternalServerError, generateResponse(State.FAILED, FailureMessages.MESSAGE_FAILED))
+        call.respond(HttpStatusCode.BadRequest, generateResponse(State.FAILED, FailureMessages.MESSAGE_FAILED))
     }
 }

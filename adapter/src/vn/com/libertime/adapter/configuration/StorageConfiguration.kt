@@ -9,7 +9,7 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import vn.com.libertime.adapter.client_side.um.kafka.consumeRegisterUser
-import vn.com.libertime.common.log.Logger
+import vn.com.libertime.port.um.required.Logger
 import vn.com.libertime.database.Database
 import vn.com.libertime.port.um.required.EnvironmentProvidable
 

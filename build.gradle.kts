@@ -5,8 +5,8 @@ plugins {
     kotlin("jvm") version "1.4.10" apply false
 }
 
-buildscript{
-    dependencies{
+buildscript {
+    dependencies {
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.4.10")
     }
 }
@@ -16,12 +16,14 @@ allprojects {
     version = "0.0.1"
 
     repositories {
-        mavenLocal()
+        mavenCentral()
         jcenter()
-        maven { url = uri("https://kotlin.bintray.com/ktor") }
-        maven { url = uri("https://plugins.gradle.org/m2/") }
-        maven { url = uri("https://artifactory.cronapp.io/public-release/") }
-        maven { url = uri("https://packages.confluent.io/maven/") }
+        maven("https://kotlin.bintray.com/ktor")
+        maven("https://plugins.gradle.org/m2/")
+        maven("https://artifactory.cronapp.io/public-release/")
+        maven("https://packages.confluent.io/maven/")
+        maven("https://dl.bintray.com/kotlin/exposed")
+        maven("https://dl.bintray.com/sdeleuze/maven/")
     }
 
     tasks.withType<Test> {

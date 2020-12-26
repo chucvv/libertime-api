@@ -2,7 +2,7 @@ package vn.com.libertime.adapter.client_side.um.kafka
 
 import com.sksamuel.avro4k.Avro
 import org.apache.kafka.clients.producer.ProducerRecord
-import vn.com.libertime.common.log.Logger
+import vn.com.libertime.port.um.required.Logger
 import vn.com.libertime.port.um.entity.UserEvent
 import vn.com.libertime.port.um.required.UserNoticeable
 
