@@ -11,6 +11,7 @@ RUN ./gradlew clean build
 
 # Container setup --------
 FROM openjdk:8-jre-alpine
+RUN apk update && apk add --no-cache gcompat
 
 # Creating user
 ENV APPLICATION_USER 1033
