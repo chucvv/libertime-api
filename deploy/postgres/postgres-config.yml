@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: liber
+  POSTGRES_USER: chucvv
+  POSTGRES_PASSWORD: postgres
+  # Add extensions you need to be enabled by default in the DB. Default are the five specified below
+  POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
