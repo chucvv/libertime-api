@@ -1,0 +1,1 @@
+https://tsuyoshiushio.medium.com/local-kafka-cluster-on-kubernetes-on-your-pc-in-5-minutes-651a2ff4dcde
